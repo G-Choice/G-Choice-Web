@@ -19,7 +19,7 @@
       </nav>
       <!-- END: Breadcrumb -->
       <!-- BEGIN: Notifications -->
-        <Dropdown v-if="getTokenFromCookies()" class="intro-x w-8 h-8">
+        <Dropdown class="intro-x w-8 h-8">
             <DropdownToggle
                     tag="div"
                     role="button"
@@ -27,7 +27,7 @@
             >
                 <img
                         alt="Icewall Tailwind HTML Admin Template"
-                        :src="getUserInfo.avtUrl"
+                        src="src/assets/images/avatar-faker.jpg"
                 />
             </DropdownToggle>
             <DropdownMenu class="w-56">
@@ -36,17 +36,17 @@
                 >
                     <DropdownHeader tag="div" class="!font-normal">
                         <div class="font-medium">
-                            {{ getUserInfo.name }}
+<!--                            {{ getUserInfo.name }}--> G-Choice
                         </div>
-                        <div class="text-xs text-white/60 mt-0.5 dark:text-slate-500">
-                            {{ wrapText(getUserInfo.email) }}
-                        </div>
+<!--                        <div class="text-xs text-white/60 mt-0.5 dark:text-slate-500">-->
+<!--                            {{ wrapText(getUserInfo.email) }}-->
+<!--                        </div>-->
                     </DropdownHeader>
-                    <DropdownItem  @click="handleRoute" class="dropdown-item hover:bg-white/5">
-                        <LogOutIcon class="w-4 h-4 mr-2" />   {{ getDropdownLabel }}
-                    </DropdownItem>
+<!--                    <DropdownItem  @click="handleRoute" class="dropdown-item hover:bg-white/5">-->
+<!--                        <LogOutIcon class="w-4 h-4 mr-2" />   {{ getDropdownLabel }}-->
+<!--                    </DropdownItem>-->
                     <DropdownItem @click="handleLogout" class="dropdown-item hover:bg-white/5">
-                        <ToggleRightIcon class="w-4 h-4 mr-2" /> Đăng xuất</DropdownItem
+                        <ToggleRightIcon class="w-4 h-4 mr-2" />Logout</DropdownItem
                     >
                 </DropdownContent>
             </DropdownMenu>

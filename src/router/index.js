@@ -7,6 +7,8 @@ import ErrorPage from "../views/error-page/Main.vue";
 import {AuthUtils} from "@/utils/localStorageUtils";
 import store from "@/stores";
 import Dashboard from "@/views/admin/Dashboard.vue";
+import Category from "@/views/admin/Category.vue";
+import Product from "@/views/admin/Product.vue";
 const routes = [
   {
     path: "/",
@@ -21,6 +23,24 @@ const routes = [
           id: 1
         },
       },
+      {
+        path: "category",
+        name: "Category",
+        component: Category,
+        meta: {
+          requiresAuth: false,
+          id: 1
+        },
+      },
+      {
+        path: "product",
+        name: "Product",
+        component: Product,
+        meta: {
+          requiresAuth: false,
+          id: 1
+        },
+      },
     ],
   },
 
@@ -29,7 +49,7 @@ const routes = [
     component: TopMenu,
     children: [
       {
-        path: 'uyen',
+        path: 'index',
         name: 'dashboard',
         component: Dashboard,
         meta: {

@@ -6,15 +6,23 @@ export const useSideMenuStore = defineStore("sideMenu", {
       {
         icon: "HomeIcon",
         pageName: "base-menu",
-        title: "Dashboard",
-        subMenu: [
-          {
-            icon: "ListIcon",
-            pageName: "base-menu",
-            title: "Dashboard"
-          },
-        ],
+        title: "Dashboard"
       },
+      {
+        icon: "ListIcon",
+        pageName: "Category",
+        title: "Categories"
+      },
+      {
+        icon: "LayersIcon",
+        pageName: "Product",
+        title: "Products"
+      },
+      // {
+      //   icon: "FolderIcon",
+      //   pageName: "Product",
+      //   title: "Products"
+      // },
     ],
   }),
 });

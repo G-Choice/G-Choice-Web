@@ -5,7 +5,7 @@ export default {
 </script>
 
 <template>
-Uyen xinh dep tuyet voi
+This is a dashboard
 </template>
 
 <style scoped>
