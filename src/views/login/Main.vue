@@ -5,12 +5,7 @@
                 <!-- BEGIN: Login Info -->
                 <div class="hidden xl:flex flex-col min-h-screen">
                     <a class="-intro-x flex items-center pt-5">
-                        <!--            <img-->
-                        <!--              alt="TECHSALE"-->
-                        <!--              class="w-10"-->
-                        <!--              src=""-->
-                        <!--            />-->
-                        <span class="text-white text-lg ml-3"> TECHSALE </span>
+                        <span class="text-white text-lg ml-3"> G-Choice </span>
                     </a>
                     <div class="my-auto">
                         <img
@@ -159,9 +154,6 @@ export default {
 <style scoped>
 .login_header {
     color: #EA580B   !important;
-}
-.invalid-feedback {
-    color: #ff3e72;
 }
 * {
     margin: 0;
