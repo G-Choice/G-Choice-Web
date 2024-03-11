@@ -9,7 +9,6 @@ export default {
   components: {Pagination_master, ProductModal},
   data() {
     return {
-      // productList: [],
       isProductModalOpen: false,
       perPage: 6,
       dataPage: {},
@@ -37,11 +36,9 @@ export default {
       this.$store.dispatch("product/setParams", params)
       await this.$store.dispatch("product/fetchListProduct")
       this.$store.dispatch("product/setDataDisplay", this.productResponse.data)
-      // const res = await ProductApi.getAllProduct(params)
       const size = this.productResponse.meta?.take;
       this.stt = size * (this.currentPage -1) + 1;
       this.totalPages = this.productResponse.meta?.pageCount;
-      console.log(this.productList)
       this.dataPage = this.paginate(this.productList, this.perPage, 1);
     },
     openProductModal() {
