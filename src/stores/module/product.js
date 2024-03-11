@@ -4,7 +4,7 @@ const state = {
   productList: {},
   params: {
     page: 1,
-    take: 8
+    take: 6
   },
   productListPaginate: []
 }

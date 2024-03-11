@@ -1,10 +1,12 @@
 <script>
 import * as Yup from "yup";
 import {Field, Form} from "vee-validate";
+import CategoryApi from "@/api/CategoryApi";
+import Notification from "@/components/modal/Notification.vue";
 
 export default {
   name: "CategoryModal",
-  components: {Field, Form},
+  components: {Notification, Field, Form},
   props: ['isOpen', 'onClose'],
   data() {
     const schema = Yup.object().shape({
@@ -13,16 +15,41 @@ export default {
     return {
       schema,
       dataCreate: {
-        name: "",
+        name: ""
       },
+      isModalNotiOpen: false,
+      isSuccess: null
     }
   },
   methods: {
-    addCategory() {
-
+    async addCategory() {
+      const params = {
+        category_name: this.dataCreate.name
+      }
+      try {
+        const res = await CategoryApi.addCategory(JSON.stringify(params))
+        this.openNotiModal('SUCCESS')
+      } catch (e) {
+        console.warn(e)
+        this.openNotiModal('FAIL')
+      } finally {
+        this.closeModal()
+        this.$store.dispatch("category/fetchListCategory")
+      }
     },
     closeModal() {
       this.onClose()
+      this.resetForm()
+    },
+    openNotiModal(status) {
+      this.isModalNotiOpen = true
+      this.isSuccess = status
+    },
+    closeNotiModal() {
+      this.isModalNotiOpen = false
+    },
+    resetForm() {
+      this.dataCreate.name = ""
     }
   }
 }
@@ -63,6 +90,7 @@ export default {
       </Form>
     </ModalBody>
   </Modal>
+  <Notification :is-open="isModalNotiOpen" :on-close="closeNotiModal" :status="isSuccess" />
 </template>
 
 <style scoped>

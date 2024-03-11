@@ -8,8 +8,8 @@ class AuthApi extends BaseApi {
   logout(params = {}) {
     return this.get('logout/api', params);
   }
-  getAuthUser(params = {}) {
-    return this.get('auth/getAuthUser', params);
+  getShopInfo() {
+    return this.get('shop/shopdetail');
   }
 }
 

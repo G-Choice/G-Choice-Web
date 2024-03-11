@@ -1,6 +1,6 @@
 <template>
   <Modal :show="isOpen" size="modal-xl" @hidden="closeModal">
-    <ModalHeader class="text-lg justify-center flex font-bold">
+    <ModalHeader class="text-lg justify-center flex font-bold" @click="openModalAlert('SUCCESS')">
       Add product
     </ModalHeader>
     <ModalBody>
@@ -152,16 +152,18 @@
       </Form>
     </ModalBody>
   </Modal>
+  <Notification :is-open="isModalAlertOpen" :on-close="closeModalAlert" :status="isSuccess" />
 </template>
 <script>
 import {Field, Form} from "vee-validate";
 import ProductApi from "@/api/ProductApi";
 import * as Yup from "yup";
 import CategoryApi from "@/api/CategoryApi";
+import Notification from "@/components/modal/Notification.vue";
 
 export default {
   name: "ProductModal",
-  components: {Field, Form},
+  components: {Notification, Field, Form},
   props: ['isOpen', 'onClose'],
   data() {
     const schema = Yup.object().shape({
@@ -184,7 +186,9 @@ export default {
         files: []
       },
       errorImages: [],
-      categoryList: []
+      categoryList: [],
+      isModalAlertOpen: false,
+      isSuccess: null
     }
   },
   created() {
@@ -219,10 +223,13 @@ export default {
       }
       try {
         const res = await ProductApi.addProduct(formData)
-        console.log(res)
-        this.closeModal()
+        this.openModalAlert("SUCCESS")
       } catch (e) {
         console.log(e)
+        this.openModalAlert("FAIL")
+      } finally {
+        this.closeModal()
+        this.$store.dispatch("product/fetchListProduct")
       }
     },
     async validate() {
@@ -235,9 +242,7 @@ export default {
       }
     },
     removeImage(index) {
-      console.log('removing index', index, this.dataCreate.files);
       this.dataCreate.files.splice(index, 1);
-      console.log('files list', this.$refs.uploadFile.files);
       const files = Array.from(this.$refs.uploadFile.files);
       files.splice(index, 1);
       // this.dataCreate.files = files;
@@ -263,7 +268,6 @@ export default {
       }
     },
     handleFileUpload() {
-      // this.$refs.uploadFile.value = null;
       this.dataCreate.files = []
       const files = this.$refs.uploadFile.files;
       for (const file of files) {
@@ -279,6 +283,13 @@ export default {
             amount: 1,
             files: []
       }
+    },
+    openModalAlert(status) {
+      this.isModalAlertOpen = true
+      this.isSuccess = status
+    },
+    closeModalAlert() {
+      this.isModalAlertOpen = false
     }
   }
 }

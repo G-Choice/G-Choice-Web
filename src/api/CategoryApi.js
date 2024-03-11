@@ -1,8 +1,8 @@
 import BaseApi from './BaseApi';
 
 class CategoryApi extends BaseApi {
-  getAllCategory(params = {}) {
-    return this.get(`category`, params);
+  getAllCategory() {
+    return this.get(`category`);
   }
   addCategory(params = {}) {
     return this.post(`category`, params)

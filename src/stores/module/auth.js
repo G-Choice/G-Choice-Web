@@ -42,19 +42,18 @@ const actions = {
         commit('CLEAR_USERINFO')
         AuthUtils.removeToken()
     },
-    async getAuthInfo({commit, dispatch}) {
-        // try {
-        //     const data = await AuthApi.getAuthUser({})
-        //     commit('SET_USERINFO', data.data)
-        //
-        // } catch (e) {
-        //     dispatch("clearUser")
-        // }
+    async getShopInfo({commit, dispatch}) {
+        try {
+            const data = await AuthApi.getShopInfo()
+            commit('SET_USERINFO', data.data.data)
+        } catch (e) {
+            dispatch("clearUser")
+        }
     }
 }
 
 const getters = {
-    getUserInfo: (state) => state.user
+    getShopInfo: (state) => state.user
 }
 
 export default {
