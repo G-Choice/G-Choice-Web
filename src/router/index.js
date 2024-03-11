@@ -85,7 +85,7 @@ const router = createRouter({
 });
 
 router.beforeEach(async (to, from, next) => {
-  let token =  AuthUtils.getTokenFromCookies()
+  let token =  AuthUtils.getToken()
   let user = store.state.auth.user
 
   const requiresAuth = to.matched.some((record) => record.meta.requiresAuth)
