@@ -91,36 +91,36 @@ export default {
         <tr class="cursor-pointer" v-for="(item, index) in productList">
           <td class="text-center" >{{ stt + index }}</td>
           <td>
-            <div class="">{{item.category_id}}</div>
+            <div class="">{{item.category_name}}</div>
           </td>
           <td>
             <Tippy
-                   class="tooltip block flex justify-left font-medium w-60 whitespace-nowrap" :key="item.product_name"
+                   class="tooltip block flex justify-left font-medium w-60 whitespace-nowrap" :key="item.product_product_name"
                    tag="div"
-                   :content="item.product_name"
+                   :content="item.product_product_name"
                    :options="{
                   theme: 'light',
                 }">
-              <span class="truncate">{{ item.product_name }}</span>
+              <span class="truncate">{{ item.product_product_name }}</span>
             </Tippy>
           </td>
           <td>
             <div class="text-center">
-              <img :src="item.images[0]" class="w-16 h-10 object-cover rounded-md" />
+              <img :src="item.product_images[0]" class="w-16 h-10 object-cover rounded-md" />
             </div>
           </td>
           <td>
-            <div class="">{{item.price}}</div>
+            <div class="">{{item.product_price}}</div>
           </td>
           <td>
-            <div class="text-center">{{ item.brand }}</div>
+            <div class="text-center">{{ item.product_brand }}</div>
           </td>
 
           <td>
-            <div class="text-center">{{ item.quantity_inventory }}</div>
+            <div class="text-center">{{ item.product_quantity_inventory }}</div>
           </td>
           <td>
-            <div class="text-center">{{ item.quantity_sold }}</div>
+            <div class="text-center">{{ item.product_quantity_sold }}</div>
           </td>
           <td>
             <Tippy
@@ -130,11 +130,11 @@ export default {
                 :options="{
                   theme: 'light',
                 }">
-              <span class="truncate">{{ item.description }}</span>
+              <span class="truncate">{{ item.product_description }}</span>
             </Tippy>
           </td>
           <td>
-            <div class="text-center">{{ item.status }}</div>
+            <div class="text-center">{{ item.product_status }}</div>
           </td>
           <td>
             <div class="text-center flex ">
