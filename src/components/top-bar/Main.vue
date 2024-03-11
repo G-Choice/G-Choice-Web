@@ -26,8 +26,8 @@
                     class="w-8 h-8 rounded-full overflow-hidden shadow-lg image-fit zoom-in scale-110"
             >
                 <img
-                        alt="Icewall Tailwind HTML Admin Template"
-                        src="src/assets/images/avatar-faker.jpg"
+                        alt="avt"
+                        :src="getShopInfo?.shop_image[0]"
                 />
             </DropdownToggle>
             <DropdownMenu class="w-56">
@@ -36,11 +36,11 @@
                 >
                     <DropdownHeader tag="div" class="!font-normal">
                         <div class="font-medium">
-<!--                            {{ getUserInfo.name }}--> G-Choice
+                            {{ getShopInfo.shop_name }}
                         </div>
-<!--                        <div class="text-xs text-white/60 mt-0.5 dark:text-slate-500">-->
-<!--                            {{ wrapText(getUserInfo.email) }}-->
-<!--                        </div>-->
+                        <div class="text-xs text-white/60 mt-0.5 dark:text-slate-500">
+                            {{ wrapText(getShopInfo.shop_phone) }}
+                        </div>
                     </DropdownHeader>
 <!--                    <DropdownItem  @click="handleRoute" class="dropdown-item hover:bg-white/5">-->
 <!--                        <LogOutIcon class="w-4 h-4 mr-2" />   {{ getDropdownLabel }}-->
@@ -72,18 +72,7 @@ export default {
 		LoginValue: String
 	},
 	computed: {
-		...mapGetters('auth', ['getUserInfo']),
-		LoginValue() {
-			return this.getUserInfo.authorities[0];
-		},
-		getDropdownLabel() {
-			if (this.$route.fullPath === '/admin') {
-				return 'Trang nhân viên';
-			}
-			if (this.$route.fullPath === '/') {
-				return 'Trang quản lý';
-			}
-		}
+		...mapGetters('auth', ['getShopInfo']),
 	},
 	methods: {
 		...mapActions('auth', ['logout']),
@@ -93,14 +82,6 @@ export default {
 				this.$router.push('/login');
 			} else {
 				window.alert("Đăng xuất không thành công")
-			}
-		},
-		handleRoute() {
-			if (this.$route.fullPath === '/admin') {
-				this.$router.replace('/');
-			}
-			if ((this.$route.fullPath === '/')){
-				this.$router.push('/admin');
 			}
 		},
 		wrapText(text) {

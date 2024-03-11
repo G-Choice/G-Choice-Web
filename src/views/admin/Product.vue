@@ -2,13 +2,14 @@
 import ProductApi from "@/api/ProductApi";
 import ProductModal from "@/components/modal/ProductModal.vue";
 import Pagination_master from "@/components/pagination/pagination_master.vue";
+import {mapGetters} from "vuex";
 
 export default {
   name: "Product",
   components: {Pagination_master, ProductModal},
   data() {
     return {
-      productList: [],
+      // productList: [],
       isProductModalOpen: false,
       perPage: 6,
       dataPage: {},
@@ -20,6 +21,12 @@ export default {
   created() {
     this.init()
   },
+  computed: {
+    ...mapGetters({
+      productList: "product/getDataDisplay",
+      productResponse: "product/getListProductInfo"
+    })
+  },
   methods: {
     async init(pageNumber = 1) {
       this.currentPage = Math.max(pageNumber);
@@ -27,12 +34,14 @@ export default {
         page: this.currentPage,
         take: this.perPage
       }
-      const res = await ProductApi.getAllProduct(params)
-      console.log(res.data.data)
-      this.productList = res.data.data
-      const size = res.data?.meta?.take;
+      this.$store.dispatch("product/setParams", params)
+      await this.$store.dispatch("product/fetchListProduct")
+      this.$store.dispatch("product/setDataDisplay", this.productResponse.data)
+      // const res = await ProductApi.getAllProduct(params)
+      const size = this.productResponse.meta?.take;
       this.stt = size * (this.currentPage -1) + 1;
-      this.totalPages = res.data?.meta?.pageCount;
+      this.totalPages = this.productResponse.meta?.pageCount;
+      console.log(this.productList)
       this.dataPage = this.paginate(this.productList, this.perPage, 1);
     },
     openProductModal() {
@@ -107,7 +116,7 @@ export default {
           </td>
           <td>
             <div class="text-center">
-              <img :src="item.product_images[0]" class="w-16 h-10 object-cover rounded-md" />
+              <img :src="item?.product_images[0]" class="w-16 h-10 object-cover rounded-md" />
             </div>
           </td>
           <td>

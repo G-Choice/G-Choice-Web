@@ -90,8 +90,9 @@ router.beforeEach(async (to, from, next) => {
 
   const requiresAuth = to.matched.some((record) => record.meta.requiresAuth)
   if (token) {
-    await store.dispatch('auth/getAuthInfo', token)
+    await store.dispatch('auth/getShopInfo', token)
     user = store.state.auth.user
+    console.log(user)
   }
 
   if (!isEmpty(user)) {
@@ -105,7 +106,6 @@ router.beforeEach(async (to, from, next) => {
       return;
     }
   }
-
 
   let checkMenu = true
 

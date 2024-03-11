@@ -2,36 +2,27 @@
 import Pagination_master from "@/components/pagination/pagination_master.vue";
 import CategoryModal from "@/components/modal/CategoryModal.vue";
 import CategoryApi from "@/api/CategoryApi";
+import {mapGetters} from "vuex";
 
 export default {
   name: "Product",
   components: {CategoryModal, Pagination_master},
   data() {
     return {
-      categoryList: [],
       isCategoryModalOpen: false,
     }
-  },
-  watch: {
-    perPage: function () {
-      this.dataPage = this.paginate(
-          this.categoryList,
-          this.perPage,
-          this.currentPage
-      );
-    },
   },
   created() {
     this.init()
   },
+  computed: {
+    ...mapGetters({
+      categoryList: "category/getListCategory"
+    })
+  },
   methods: {
     async init() {
-      const params = {
-        page: 1,
-        take: 10
-      }
-      const res = await CategoryApi.getAllCategory(params)
-      this.categoryList = res.data.data
+      await this.$store.dispatch("category/fetchListCategory")
     },
     wrapText(text) {
       if (text?.length > 32) {
@@ -44,19 +35,6 @@ export default {
     },
     closeCategoryModal() {
       this.isCategoryModalOpen = false
-    },
-    onPageChange(page) {
-      this.currentPage = page - 1;
-      this.list(page - 1);
-    },
-    paginate(array, page_size, page_number) {
-      return array.slice(
-          (page_number - 1) * page_size,
-          page_number * page_size
-      );
-    },
-    onClickFirstPage() {
-      this.$emit("pagechanged", 1);
     }
   }
 }

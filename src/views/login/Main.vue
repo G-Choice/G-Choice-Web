@@ -124,10 +124,9 @@ export default {
     },
 
     async onSubmit(values) {
-      values.fcmToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6InVleW4iLCJyb2xlIjoic2VsbGVyIiwiaWF0IjoxNzEwMTI0MTMxLCJleHAiOjE3MTAxMzg1MzF9.wCZKUHT7OL80k4ov1zzC7QLGF0P7SB3s1Ye5PzbwouA"
+      values.fcmToken = ""
       const res = await this.login(JSON.stringify(values, null, 4))
       // await this.getAuthInfo()
-      console.log(res)
       if (res) {
         this.$router.push('product')
 
