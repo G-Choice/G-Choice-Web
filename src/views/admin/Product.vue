@@ -10,7 +10,7 @@ export default {
     return {
       productList: [],
       isProductModalOpen: false,
-      perPage: 8,
+      perPage: 6,
       dataPage: {},
       totalPages: 0,
       currentPage: 1,
@@ -33,12 +33,6 @@ export default {
       this.stt = size * (this.currentPage -1) + 1;
       this.totalPages = res.data?.meta?.pageCount;
       this.dataPage = this.paginate(this.productList, this.perPage, 1);
-    },
-    wrapText(text) {
-      if (text?.length > 32) {
-        return text?.slice(0, 32) + "\n" + text?.slice(32);
-      }
-      return text;
     },
     openProductModal() {
       this.isProductModalOpen = true
@@ -70,7 +64,7 @@ export default {
       <span class="text-md font-bold">Create</span>
     </button>
   </div>
-  <div class="h-[80vh]">
+  <div class="h-[75vh]" v-if="productList.length > 0">
     <div class="scroll-list scroll-view">
       <table class="table table-report">
         <thead class="text-white sticky top-0 z-20">
@@ -167,17 +161,20 @@ export default {
       <ProductModal :is-open="isProductModalOpen" :on-close="closeProductModal" />
     </div>
   </div>
+  <div class="col-span-6 sm:col-span-3 xl:col-span-2 flex flex-col justify-end items-center" v-else>
+    <LoadingIcon icon="three-dots" class="w-20 h-20"/>
+  </div>
 </template>
 
 <style scoped>
 .scroll-list {
-  height: 75vh;
-  overflow-y: scroll;
+  height: 72vh;
+  overflow-y: hidden;
 }
 </style>
 <style>
 .content {
-  min-height: 75vh !important;
+  min-height: 70vh !important;
 }
 .main {
   overflow-y: hidden;

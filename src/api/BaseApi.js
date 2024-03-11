@@ -131,8 +131,8 @@ export default class BaseApi {
             'Content-Type': 'application/json;charset=UTF-8/multipart/form-data'
         }
 
-        if (AuthUtils.getTokenFromCookies()) {
-            headers['Authorization'] = `Bearer ${AuthUtils.getTokenFromCookies()}`
+        if (AuthUtils.getToken()) {
+            headers['Authorization'] = `Bearer ${AuthUtils.getToken()}`
         }
 
         if (config) {
@@ -150,8 +150,8 @@ export default class BaseApi {
             'Content-Type': 'multipart/form-data'
         }
 
-        if (AuthUtils.getTokenFromCookies()) {
-            headers['Authorization'] = `Bearer ${AuthUtils.getTokenFromCookies()}`
+        if (AuthUtils.getToken()) {
+            headers['Authorization'] = `Bearer ${AuthUtils.getToken()}`
         }
 
         if (config) {

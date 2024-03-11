@@ -60,7 +60,6 @@
 
 <script>
 import {mapActions, mapGetters} from "vuex";
-import {getTokenFromCookies} from "@/utils/localStorageUtils";
 
 export default {
 	name: 'Main',
@@ -87,7 +86,6 @@ export default {
 		}
 	},
 	methods: {
-		getTokenFromCookies,
 		...mapActions('auth', ['logout']),
 		handleLogout() {
 			const isLogout = this.logout();

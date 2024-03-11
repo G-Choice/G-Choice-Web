@@ -6,7 +6,7 @@
           <ChevronLeftIcon class="w-4 h-4" />
         </button>
       </li>
-      <li class="page-item" v-for="page in pages" :key="page.name" :class="{ 'active': page.isDisabled }">
+      <li class="page-item font-bold" v-for="page in pages" :key="page.name" :class="{ 'active': page.isDisabled }">
         <button class="page-link" type="button" @click="onClickPage(page.name)" :disabled="page.name === '...'">
           {{ page.name }}
         </button>

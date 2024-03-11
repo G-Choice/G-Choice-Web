@@ -5,115 +5,113 @@
     </ModalHeader>
     <ModalBody>
       <Form @submit="addProduct" :validation-schema="schema" v-slot="{ errors }">
-        <div>
-<!--        <div class="flex flex-row justify-center gap-5 form-create">-->
-<!--          <div class="w-full create-layout">-->
-<!--            <label for="regular-form-1" class="form-label text-sm font-bold">Category <span-->
-<!--                class="text-red-600">*</span></label>-->
-<!--            <Field-->
-<!--                as="select"-->
-<!--                name="category"-->
-<!--                class="form-control pr-10"-->
-<!--                placeholder="Enter category"-->
-<!--                v-model="dataCreate.category"-->
-<!--                :class="{ 'is-invalid': errors.category }"-->
-<!--            >-->
-<!--              <option value="">Please select the category</option>-->
-<!--              <option value="Drink">Coffee</option>-->
-<!--              <option value="Food">Tea</option>-->
-<!--              <option value="IInstant">Coke</option>-->
-<!--            </Field>-->
-<!--            <div class="invalid-feedback">{{ errors.category }}</div>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--        <div class="flex flex-row justify-center gap-5 form-create">-->
-<!--          <div class="w-full create-layout">-->
-<!--            <label for="regular-form-1" class="form-label text-sm font-bold">Name <span-->
-<!--                class="text-red-600">*</span></label>-->
-<!--            <Field-->
-<!--                type="text"-->
-<!--                name="name"-->
-<!--                class="form-control pr-10"-->
-<!--                placeholder="Enter product name"-->
-<!--                v-model="dataCreate.name"-->
-<!--                required-->
-<!--                :class="{ 'is-invalid': errors.name }"-->
-<!--                min-length="20"-->
-<!--            />-->
-<!--            <div class="invalid-feedback">{{ errors.name }}</div>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--        <div class="flex flex-row justify-center gap-5 form-create">-->
-<!--          <div class="w-full create-layout">-->
-<!--            <label for="regular-form-1" class="form-label text-sm font-bold">Price <span-->
-<!--                class="text-red-600">*</span></label>-->
-<!--            <Field-->
-<!--                type="text"-->
-<!--                name="price"-->
-<!--                class="form-control pr-10"-->
-<!--                placeholder="Enter price"-->
-<!--                v-model="dataCreate.price"-->
-<!--                required-->
-<!--                :class="{ 'is-invalid': errors.price }"-->
-<!--            />-->
-<!--            <div class="invalid-feedback">{{ errors.price }}</div>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--        <div class="flex flex-row justify-center gap-5 form-create">-->
-<!--          <div class="w-full create-layout">-->
-<!--            <label for="regular-form-1" class="form-label text-sm font-bold">Description <span-->
-<!--                class="text-red-600">*</span></label>-->
-<!--            <Field-->
-<!--                as="textarea"-->
-<!--                name="description"-->
-<!--                class="form-control pr-10"-->
-<!--                placeholder="Enter description"-->
-<!--                v-model="dataCreate.description"-->
-<!--                required-->
-<!--                :class="{ 'is-invalid': errors.description }"-->
-<!--            />-->
-<!--            <div class="invalid-feedback">{{ errors.description }}</div>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--        <div class="flex flex-row justify-center gap-5 form-create">-->
-<!--          <div class="w-full create-layout">-->
-<!--            <label for="regular-form-1" class="form-label text-sm font-bold">Brand <span-->
-<!--                class="text-red-600">*</span></label>-->
-<!--            <Field-->
-<!--                type="text"-->
-<!--                name="brand"-->
-<!--                class="form-control pr-10"-->
-<!--                placeholder="Enter the brand"-->
-<!--                required-->
-<!--                v-model="dataCreate.brand"-->
-<!--                :class="{ 'is-invalid': errors.brand }"-->
-<!--            />-->
-<!--            <div class="invalid-feedback">{{ errors.brand }}</div>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--        <div class="flex flex-row justify-center gap-5 form-create">-->
-<!--          <div class="w-full create-layout">-->
-<!--            <label for="regular-form-1" class="form-label text-sm font-bold">Amount <span class="text-red-600">*</span></label>-->
-<!--            <Field-->
-<!--                type="number"-->
-<!--                name="amount"-->
-<!--                class="form-control pr-10"-->
-<!--                placeholder="Enter the stock"-->
-<!--                v-model="dataCreate.amount"-->
-<!--                required-->
-<!--                min="0"-->
-<!--                :class="{ 'is-invalid': errors.amount }"-->
-<!--            />-->
-<!--            <div class="invalid-feedback">{{ errors.amount }}</div>-->
-<!--          </div>-->
-<!--        </div>-->
+        <div class="flex flex-row justify-center gap-5 form-create">
+          <div class="w-full create-layout">
+            <label for="regular-form-1" class="form-label text-sm font-bold">Category <span
+                class="text-red-600">*</span></label>
+            <Field
+                as="select"
+                name="category"
+                class="form-control pr-10"
+                placeholder="Enter category"
+                v-model="dataCreate.category"
+                :class="{ 'is-invalid': errors.category }"
+            >
+              <option value="">Please select the category</option>
+              <option v-for="(item, index) in this.categoryList" :key="index" :value="item.id">
+                {{ item.category_name }}
+              </option>
+            </Field>
+            <div class="invalid-feedback">{{ errors.category }}</div>
+          </div>
+        </div>
+        <div class="flex flex-row justify-center gap-5 form-create">
+          <div class="w-full create-layout">
+            <label for="regular-form-1" class="form-label text-sm font-bold">Name <span
+                class="text-red-600">*</span></label>
+            <Field
+                type="text"
+                name="name"
+                class="form-control pr-10"
+                placeholder="Enter product name"
+                v-model="dataCreate.name"
+                required
+                :class="{ 'is-invalid': errors.name }"
+                min-length="20"
+            />
+            <div class="invalid-feedback">{{ errors.name }}</div>
+          </div>
+        </div>
+        <div class="flex flex-row justify-center gap-5 form-create">
+          <div class="w-full create-layout">
+            <label for="regular-form-1" class="form-label text-sm font-bold">Price <span
+                class="text-red-600">*</span></label>
+            <Field
+                type="text"
+                name="price"
+                class="form-control pr-10"
+                placeholder="Enter price"
+                v-model="dataCreate.price"
+                required
+                :class="{ 'is-invalid': errors.price }"
+            />
+            <div class="invalid-feedback">{{ errors.price }}</div>
+          </div>
+        </div>
+        <div class="flex flex-row justify-center gap-5 form-create">
+          <div class="w-full create-layout">
+            <label for="regular-form-1" class="form-label text-sm font-bold">Description <span
+                class="text-red-600">*</span></label>
+            <Field
+                as="textarea"
+                name="description"
+                class="form-control pr-10"
+                placeholder="Enter description"
+                v-model="dataCreate.description"
+                required
+                :class="{ 'is-invalid': errors.description }"
+            />
+            <div class="invalid-feedback">{{ errors.description }}</div>
+          </div>
+        </div>
+        <div class="flex flex-row justify-center gap-5 form-create">
+          <div class="w-full create-layout">
+            <label for="regular-form-1" class="form-label text-sm font-bold">Brand <span
+                class="text-red-600">*</span></label>
+            <Field
+                type="text"
+                name="brand"
+                class="form-control pr-10"
+                placeholder="Enter the brand"
+                required
+                v-model="dataCreate.brand"
+                :class="{ 'is-invalid': errors.brand }"
+            />
+            <div class="invalid-feedback">{{ errors.brand }}</div>
+          </div>
+        </div>
+        <div class="flex flex-row justify-center gap-5 form-create">
+          <div class="w-full create-layout">
+            <label for="regular-form-1" class="form-label text-sm font-bold">Amount <span class="text-red-600">*</span></label>
+            <Field
+                type="number"
+                name="amount"
+                class="form-control pr-10"
+                placeholder="Enter the stock"
+                v-model="dataCreate.amount"
+                required
+                min="0"
+                :class="{ 'is-invalid': errors.amount }"
+            />
+            <div class="invalid-feedback">{{ errors.amount }}</div>
+          </div>
         </div>
         <div class="flex flex-row justify-center gap-5 form-create">
           <div class="w-full create-layout">
             <label for="regular-form-1" class="form-label text-sm font-bold">Image <span
                 class="text-red-600">*</span></label>
             <div class="mx-auto cursor-pointer relative mt-5">
-              <button type="button" class="btn btn-primary w-full">Chọn ảnh</button>
+              <button type="button" class="btn btn-primary w-full">Choose images</button>
               <input
                   type="file"
                   ref="uploadFile"
@@ -159,6 +157,7 @@
 import {Field, Form} from "vee-validate";
 import ProductApi from "@/api/ProductApi";
 import * as Yup from "yup";
+import CategoryApi from "@/api/CategoryApi";
 
 export default {
   name: "ProductModal",
@@ -176,6 +175,7 @@ export default {
     return {
       schema,
       dataCreate: {
+        category: "",
         name: "",
         price: "",
         description: "",
@@ -183,34 +183,44 @@ export default {
         amount: 1,
         files: []
       },
-      errorImages: []
+      errorImages: [],
+      categoryList: []
     }
+  },
+  created() {
+    this.getCategories()
   },
   methods: {
     closeModal() {
       this.onClose()
+      this.resetForm()
+    },
+    async getCategories () {
+      const res = await CategoryApi.getAllCategory()
+      this.categoryList = res.data.data
     },
     async addProduct() {
-      // const isValid = await this.validate();
-      // if (!isValid) {
-      //   console.log('Validation failed');
-      //   return;
-      // }
+      const isValid = await this.validate();
+      if (!isValid) {
+        console.log('Validation failed');
+        return;
+      }
       this.validateImage()
       const formData = new FormData();
       formData.append('product_name', this.dataCreate.name)
       formData.append('price', this.dataCreate.price)
       formData.append('description', this.dataCreate.description)
       formData.append('brand', this.dataCreate.brand)
+      formData.append('category_id', this.dataCreate.category)
+      formData.append('product_availability', this.dataCreate.amount)
       for (let i = 0; i < this.$refs.uploadFile.files?.length; i++) {
         let file = this.$refs.uploadFile.files[i];
         formData.append('files', file);
       }
-      // console.log(this.dataCreate.files)
-      return
       try {
         const res = await ProductApi.addProduct(formData)
         console.log(res)
+        this.closeModal()
       } catch (e) {
         console.log(e)
       }
@@ -225,8 +235,18 @@ export default {
       }
     },
     removeImage(index) {
+      console.log('removing index', index, this.dataCreate.files);
       this.dataCreate.files.splice(index, 1);
-      this.$refs.uploadFile.files = this.$refs.uploadFile.files.filter((_, i) => i !== index);
+      console.log('files list', this.$refs.uploadFile.files);
+      const files = Array.from(this.$refs.uploadFile.files);
+      files.splice(index, 1);
+      // this.dataCreate.files = files;
+      // console.log('files list as array', Array.from(this.$refs.uploadFile.files));
+      // console.log('filtered', Array.from(this.$refs.uploadFile.files).filter((_, i) => i !== index));
+      // console.log('filtered with splice', Array.from(this.$refs.uploadFile.files).splice(index, 1));
+      // // this.$refs.uploadFile.files = this.$refs.uploadFile.files.filter((_, i) => i !== index);
+      // this.$refs.uploadFile.files = FileList.
+      // Array.from(this.$refs.uploadFile.files).filter((_, i) => i !== index);
     },
     validateImage() {
       let file = this.$refs.uploadFile.files[0]
@@ -234,18 +254,32 @@ export default {
       this.errorImages = []
 
       if (!file) {
-        this.errorImages.push('Vui lòng chọn hình ảnh')
+        this.errorImages.push('Image is required')
         return
       }
       if (!allowedTypes.includes(file.type)) {
-        this.errorImages.push('Loại tệp không hợp lệ. Chỉ cho phép jpeg, png và jpg.')
+        this.errorImages.push('Invalid type of files. Allowed jpeg, png and jpg.')
         return
       }
     },
     handleFileUpload() {
+      // this.$refs.uploadFile.value = null;
+      this.dataCreate.files = []
       const files = this.$refs.uploadFile.files;
-      console.log(this.$refs.uploadFile.files)
+      for (const file of files) {
+        this.dataCreate.files.push({url: URL.createObjectURL(file), file});
+      }
     },
+    resetForm() {
+      this.dataCreate = {
+        name: "",
+            price: "",
+            description: "",
+            brand: "",
+            amount: 1,
+            files: []
+      }
+    }
   }
 }
 </script>
