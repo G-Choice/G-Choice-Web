@@ -28,6 +28,7 @@ export default {
         take: this.perPage
       }
       const res = await ProductApi.getAllProduct(params)
+      console.log(res.data.data)
       this.productList = res.data.data
       const size = res.data?.meta?.take;
       this.stt = size * (this.currentPage -1) + 1;
@@ -174,7 +175,7 @@ export default {
 </style>
 <style>
 .content {
-  min-height: 70vh !important;
+  min-height: 75vh !important;
 }
 .main {
   overflow-y: hidden;
