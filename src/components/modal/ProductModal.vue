@@ -47,7 +47,7 @@
             <label for="regular-form-1" class="form-label text-sm font-bold">Price <span
                 class="text-red-600">*</span></label>
             <Field
-                type="text"
+                type="number"
                 name="price"
                 class="form-control pr-10"
                 placeholder="Enter price"

@@ -1,5 +1,4 @@
 <script>
-import ProductApi from "@/api/ProductApi";
 import ProductModal from "@/components/modal/ProductModal.vue";
 import Pagination_master from "@/components/pagination/pagination_master.vue";
 import {mapGetters} from "vuex";
@@ -42,6 +41,7 @@ export default {
       this.dataPage = this.paginate(this.productList, this.perPage, 1);
     },
     openProductModal() {
+      console.log("abc")
       this.isProductModalOpen = true
     },
     closeProductModal() {
@@ -76,22 +76,17 @@ export default {
       <table class="table table-report">
         <thead class="text-white sticky top-0 z-20">
         <tr class="bg-black">
-          <th class="whitespace-nowrap border border-slate-300 text-center request-id rounded">STT</th>
-          <th class="whitespace-nowrap border border-slate-300 request_userName rounded"
-              @click="">
-            Category
-<!--            <span class="fa fa-caret-up ml-3"></span>-->
-            <span class="fa fa-caret-down ml-3"></span>
-          </th>
-          <th class="whitespace-nowrap border border-slate-300 text-center request-id rounded">Name</th>
-          <th class="whitespace-nowrap border border-slate-300 text-center request-id rounded">Images</th>
-          <th class="whitespace-nowrap border border-slate-300 text-center request-id rounded">Price</th>
-          <th class="whitespace-nowrap border border-slate-300 text-center request-id rounded">Brand</th>
-          <th class="whitespace-nowrap border border-slate-300 text-center request-id rounded">Stock</th>
-          <th class="whitespace-nowrap border border-slate-300 text-center request-id rounded">Sold</th>
-          <th class="whitespace-nowrap border border-slate-300 text-center request-id rounded">Description</th>
-          <th class="whitespace-nowrap border border-slate-300 text-center request-id rounded">Status</th>
-          <th class="whitespace-nowrap border border-slate-300 text-center request-id rounded">Action</th>
+          <th class="whitespace-nowrap border border-slate-300 text-center rounded">STT</th>
+          <th class="whitespace-nowrap border border-slate-300 text-center rounded">Category</th>
+          <th class="whitespace-nowrap border border-slate-300 text-center rounded">Name</th>
+          <th class="whitespace-nowrap border border-slate-300 text-center rounded">Images</th>
+          <th class="whitespace-nowrap border border-slate-300 text-center rounded">Price</th>
+          <th class="whitespace-nowrap border border-slate-300 text-center rounded">Brand</th>
+          <th class="whitespace-nowrap border border-slate-300 text-center rounded">Stock</th>
+          <th class="whitespace-nowrap border border-slate-300 text-center rounded">Sold</th>
+          <th class="whitespace-nowrap border border-slate-300 text-center rounded">Description</th>
+          <th class="whitespace-nowrap border border-slate-300 text-center rounded">Status</th>
+          <th class="whitespace-nowrap border border-slate-300 text-center rounded">Action</th>
         </tr>
         </thead>
         <tbody class="font-medium">
@@ -165,12 +160,12 @@ export default {
           :currentPage="currentPage"
           @pagechanged="onPageChange"
       />
-      <ProductModal :is-open="isProductModalOpen" :on-close="closeProductModal" />
     </div>
   </div>
   <div class="col-span-6 sm:col-span-3 xl:col-span-2 flex flex-col justify-end items-center" v-else>
     <LoadingIcon icon="three-dots" class="w-20 h-20"/>
   </div>
+  <ProductModal :is-open="isProductModalOpen" :on-close="closeProductModal" />
 </template>
 
 <style scoped>

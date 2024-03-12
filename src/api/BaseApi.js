@@ -61,6 +61,18 @@ export default class BaseApi {
         }
     }
 
+    async patch(url, data, config = {}) {
+        try {
+            const headers = this.getHeaders(config)
+            const response= await axios.patch(`${API_ROOT}/${url}`, data, {
+                headers: headers
+            })
+            return this._responseHandler(response)
+        } catch (error) {
+            this._errorHandler(error)
+        }
+    }
+
     async post(url, data, config = {}) {
         try {
             const headers = this.getHeaders(config)

@@ -1,15 +1,19 @@
 <script>
 import Pagination_master from "@/components/pagination/pagination_master.vue";
 import CategoryModal from "@/components/modal/CategoryModal.vue";
-import CategoryApi from "@/api/CategoryApi";
 import {mapGetters} from "vuex";
+import UpdateCategoryModal from "@/components/modal/UpdateCategoryModal.vue";
+import DeleteCategory from "@/components/modal/DeleteCategory.vue";
 
 export default {
   name: "Product",
-  components: {CategoryModal, Pagination_master},
+  components: {DeleteCategory, UpdateCategoryModal, CategoryModal, Pagination_master},
   data() {
     return {
       isCategoryModalOpen: false,
+      isUpdateCategoryModalOpen: false,
+      dataDetail: null,
+      isDeleteCategoryModalOpen: false
     }
   },
   created() {
@@ -35,7 +39,22 @@ export default {
     },
     closeCategoryModal() {
       this.isCategoryModalOpen = false
+    },
+    openUpdateCategoryModal(item) {
+      this.isUpdateCategoryModalOpen = true
+      this.dataDetail = item
+    },
+    closeUpdateCategoryModal() {
+      this.isUpdateCategoryModalOpen = false
+    },
+    openDeleteCategoryModal(item) {
+      this.isDeleteCategoryModalOpen = true
+      this.dataDetail = item
+    },
+    closeDeleteCategoryModal() {
+      this.isDeleteCategoryModalOpen = false
     }
+
   }
 }
 </script>
@@ -52,15 +71,10 @@ export default {
       <table class="table table-report">
         <thead class="text-white sticky top-0 z-20">
         <tr class="bg-black">
-          <th class="whitespace-nowrap border border-slate-300 text-center request-id rounded">STT</th>
-          <th class="whitespace-nowrap border border-slate-300 request_userName rounded"
-              @click="">
-            Category
-            <!--            <span class="fa fa-caret-up ml-3"></span>-->
-            <span class="fa fa-caret-down ml-3"></span>
-          </th>
-          <th class="whitespace-nowrap border border-slate-300 text-center request-id rounded">Name</th>
-          <th class="whitespace-nowrap border border-slate-300 text-center request-id rounded">Action</th>
+          <th class="whitespace-nowrap border border-slate-300 text-center rounded w-10">STT</th>
+          <th class="whitespace-nowrap border border-slate-300 text-center rounded w-10">ID</th>
+          <th class="whitespace-nowrap border border-slate-300 text-center rounded">Name</th>
+          <th class="whitespace-nowrap border border-slate-300 text-center rounded w-24">Action</th>
         </tr>
         </thead>
         <tbody class="font-medium">
@@ -71,7 +85,7 @@ export default {
           </td>
           <td>
             <Tippy
-                class="tooltip block flex justify-left font-medium w-60 whitespace-nowrap" :key="item.category_name"
+                class="tooltip block flex justify-left font-medium whitespace-nowrap" :key="item.category_name"
                 tag="div"
                 :content="item.category_name"
                 :options="{
@@ -82,11 +96,10 @@ export default {
           </td>
           <td>
             <div class="text-center flex ">
-              <span class="flex items-center mr-3 text-primary">
+              <span class="flex items-center mr-3 text-primary" @click="openUpdateCategoryModal(item)">
                 <EditIcon class="w-4 h-4 mr-1" />
               </span>
-              <span class="flex items-center mr-3 text-primary"
-                    @click="">
+              <span class="flex items-center mr-3 text-primary" @click="openDeleteCategoryModal(item)">
                 <TrashIcon class="w-4 h-4 mr-1" />
               </span>
             </div>
@@ -100,6 +113,8 @@ export default {
     <LoadingIcon icon="three-dots" class="w-20 h-20"/>
   </div>
   <CategoryModal :is-open="isCategoryModalOpen" :on-close="closeCategoryModal"/>
+  <UpdateCategoryModal :is-open="isUpdateCategoryModalOpen" :on-close="closeUpdateCategoryModal" :data="dataDetail"/>
+  <DeleteCategory :is-open="isDeleteCategoryModalOpen" :on-close="closeDeleteCategoryModal" :data="dataDetail"/>
 </template>
 
 <style scoped>
