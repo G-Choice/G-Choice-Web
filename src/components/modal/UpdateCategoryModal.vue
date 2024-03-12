@@ -5,16 +5,16 @@ import CategoryApi from "@/api/CategoryApi";
 import Notification from "@/components/modal/Notification.vue";
 
 export default {
-  name: "CategoryModal",
+  name: "UpdateCategoryModal",
   components: {Notification, Field, Form},
-  props: ['isOpen', 'onClose'],
+  props: ['isOpen', 'onClose', 'data'],
   data() {
     const schema = Yup.object().shape({
       name: Yup.string().required("Category is required")
     })
     return {
       schema,
-      dataCreate: {
+      dataUpdate: {
         name: ""
       },
       isModalNotiOpen: false,
@@ -24,16 +24,14 @@ export default {
   methods: {
     async addCategory() {
       const params = {
-        category_name: this.dataCreate.name
+        category_name: this.dataUpdate.name
       }
       try {
-        const res = await CategoryApi.addCategory(JSON.stringify(params))
-        this.openNotiModal('SUCCESS')
-        if (res.data.statusCode === 500) {
-          this.openNotiModal('FAIL')
-        }
+        const res = await CategoryApi.updateCategory(JSON.stringify(params), this.data.id)
+        await this.openNotiModal('SUCCESS')
       } catch (e) {
         console.warn(e)
+        this.openNotiModal('FAIL')
       } finally {
         this.closeModal()
         this.$store.dispatch("category/fetchListCategory")
@@ -51,7 +49,12 @@ export default {
       this.isModalNotiOpen = false
     },
     resetForm() {
-      this.dataCreate.name = ""
+      this.dataUpdate.name = ""
+    }
+  },
+  watch: {
+    isOpen() {
+      this.dataUpdate.name = this.data.category_name
     }
   }
 }
@@ -60,7 +63,7 @@ export default {
 <template>
   <Modal :show="isOpen" size="modal-lg" @hidden="closeModal">
     <ModalHeader class="text-lg justify-center flex font-bold">
-      Add Category
+      Update Category
     </ModalHeader>
     <ModalBody>
       <Form @submit="addCategory" :validation-schema="schema" v-slot="{errors}">
@@ -73,7 +76,7 @@ export default {
                 name="name"
                 class="form-control pr-10"
                 placeholder="Enter Category name"
-                v-model="dataCreate.name"
+                v-model="dataUpdate.name"
                 required
                 min-length="20"
                 :class="{ 'is-invalid': errors.name }"
@@ -82,12 +85,10 @@ export default {
           </div>
         </div>
         <ModalFooter>
-          <div>
             <div class="intro-x mx-auto text-center flex justify-end">
-              <button class="btn btn-secondary w-24 mr-4 mb-2" @click="closeModal">Cancel</button>
-              <button class="btn btn-primary w-24 mb-2" type="submit">Add</button>
+              <div class="btn btn-secondary w-24 mr-4 mb-2" @click="closeModal">Cancel</div>
+              <button class="btn btn-primary w-24 mb-2" type="submit">Update</button>
             </div>
-          </div>
         </ModalFooter>
       </Form>
     </ModalBody>

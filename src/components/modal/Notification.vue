@@ -18,7 +18,7 @@ export default {
     <ModalBody>
       <div v-if="status === 'SUCCESS'" class="flex flex-col items-center justify-center">
         <img src="/src/assets/images/successfull.png" class="w-52 object-cover" alt="success">
-        <p class="font-bold text-lg mt-5">Successfully added!</p>
+        <p class="font-bold text-lg mt-5">Successfully!</p>
       </div>
       <div v-else-if="status === 'FAIL'" class="flex flex-col items-center justify-center">
         <img src="/src/assets/images/x-circle.png" class="w-20 h-20" alt="fail">
