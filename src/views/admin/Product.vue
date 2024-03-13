@@ -52,7 +52,6 @@ export default {
       this.isProductModalOpen = false
     },
     openDeleteProductModal(item) {
-      console.log(item)
       this.dataDetail = item
       this.isDeleteProductModalOpen = true
     },
