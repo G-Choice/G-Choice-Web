@@ -1,5 +1,4 @@
 <script>
-
 import CategoryApi from "@/api/CategoryApi";
 import Notification from "@/components/modal/Notification.vue";
 

@@ -18,7 +18,8 @@ export default {
         name: ""
       },
       isModalNotiOpen: false,
-      isSuccess: null
+      isSuccess: null,
+      isEnabled: false
     }
   },
   methods: {
@@ -27,6 +28,7 @@ export default {
         category_name: this.dataCreate.name
       }
       try {
+        this.isEnabled = true
         const res = await CategoryApi.addCategory(JSON.stringify(params))
         this.openNotiModal('SUCCESS')
         if (res.data.statusCode === 500) {
@@ -36,6 +38,7 @@ export default {
         console.warn(e)
       } finally {
         this.closeModal()
+        this.isEnabled = false
         this.$store.dispatch("category/fetchListCategory")
       }
     },
@@ -85,7 +88,8 @@ export default {
           <div>
             <div class="intro-x mx-auto text-center flex justify-end">
               <button class="btn btn-secondary w-24 mr-4 mb-2" @click="closeModal">Cancel</button>
-              <button class="btn btn-primary w-24 mb-2" type="submit">Add</button>
+              <div v-if="isEnabled" class="w-24 mr-4 mb-2"><LoadingIcon icon="three-dots" class="w-20 h-20"/></div>
+              <button class="btn btn-primary w-24 mb-2" type="submit" v-else>Add</button>
             </div>
           </div>
         </ModalFooter>

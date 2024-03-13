@@ -7,6 +7,9 @@ class ProductApi extends BaseApi {
   addProduct(params = {}) {
     return this.postDataForm(`products`, params)
   }
+  deleteProduct(id) {
+    return this.delete(`products/${id}`)
+  }
 }
 
 export default new ProductApi()
