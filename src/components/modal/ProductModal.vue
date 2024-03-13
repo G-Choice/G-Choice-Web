@@ -144,8 +144,11 @@
         <ModalFooter>
           <div>
             <div class="intro-x mx-auto text-center flex justify-end">
-              <button class="btn btn-secondary w-24 mr-4 mb-2" @click="closeModal">Cancel</button>
-              <button class="btn btn-primary w-24 mb-2" type="submit">Add</button>
+              <div class="btn btn-secondary w-24 mr-4 mb-2" @click="closeModal">Cancel</div>
+              <div v-if="isEnabled" class="w-10 mr-4 mb-2">
+                <LoadingIcon icon="three-dots" class="w-10 h-10"/>
+              </div>
+              <button class="btn btn-primary w-24 mb-2" type="submit" v-else>Add</button>
             </div>
           </div>
         </ModalFooter>
@@ -188,7 +191,8 @@ export default {
       errorImages: [],
       categoryList: [],
       isModalAlertOpen: false,
-      isSuccess: null
+      isSuccess: null,
+      isEnabled: false
     }
   },
   created() {
@@ -222,6 +226,7 @@ export default {
         formData.append('files', file);
       }
       try {
+        this.isEnabled = true
         const res = await ProductApi.addProduct(formData)
         this.openModalAlert("SUCCESS")
       } catch (e) {
@@ -229,6 +234,7 @@ export default {
         this.openModalAlert("FAIL")
       } finally {
         this.closeModal()
+        this.isEnabled = false
         this.$store.dispatch("product/fetchListProduct")
       }
     },

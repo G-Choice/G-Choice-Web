@@ -18,7 +18,8 @@ export default {
         name: ""
       },
       isModalNotiOpen: false,
-      isSuccess: null
+      isSuccess: null,
+      isEnabled: false
     }
   },
   methods: {
@@ -27,6 +28,7 @@ export default {
         category_name: this.dataUpdate.name
       }
       try {
+        this.isEnabled = true
         const res = await CategoryApi.updateCategory(JSON.stringify(params), this.data.id)
         await this.openNotiModal('SUCCESS')
       } catch (e) {
@@ -34,6 +36,7 @@ export default {
         this.openNotiModal('FAIL')
       } finally {
         this.closeModal()
+        this.isEnabled = false
         this.$store.dispatch("category/fetchListCategory")
       }
     },
@@ -87,7 +90,8 @@ export default {
         <ModalFooter>
             <div class="intro-x mx-auto text-center flex justify-end">
               <div class="btn btn-secondary w-24 mr-4 mb-2" @click="closeModal">Cancel</div>
-              <button class="btn btn-primary w-24 mb-2" type="submit">Update</button>
+              <div v-if="isEnabled" class="w-10 mr-4 mb-2"><LoadingIcon icon="three-dots" class="w-10 h-10"/></div>
+              <button v-else class="btn btn-primary w-24 mb-2" type="submit">Update</button>
             </div>
         </ModalFooter>
       </Form>

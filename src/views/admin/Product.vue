@@ -2,10 +2,12 @@
 import ProductModal from "@/components/modal/ProductModal.vue";
 import Pagination_master from "@/components/pagination/pagination_master.vue";
 import {mapGetters} from "vuex";
+import DeleteProductModal from "@/components/modal/DeleteProductModal.vue";
+import UpdateProductModal from "@/components/modal/UpdateProductModal.vue";
 
 export default {
   name: "Product",
-  components: {Pagination_master, ProductModal},
+  components: {UpdateProductModal, DeleteProductModal, Pagination_master, ProductModal},
   data() {
     return {
       isProductModalOpen: false,
@@ -14,6 +16,9 @@ export default {
       totalPages: 0,
       currentPage: 1,
       stt: 0,
+      isUpdateProductModalOpen: false,
+      isDeleteProductModalOpen: false,
+      dataDetail: {}
     }
   },
   created() {
@@ -41,11 +46,25 @@ export default {
       this.dataPage = this.paginate(this.productList, this.perPage, 1);
     },
     openProductModal() {
-      console.log("abc")
       this.isProductModalOpen = true
     },
     closeProductModal() {
       this.isProductModalOpen = false
+    },
+    openDeleteProductModal(item) {
+      console.log(item)
+      this.dataDetail = item
+      this.isDeleteProductModalOpen = true
+    },
+    closeDeleteProductModal() {
+      this.isDeleteProductModalOpen = false
+    },
+    openUpdateProductModal(item) {
+      this.dataDetail = item
+      this.isUpdateProductModalOpen = true
+    },
+    closeUpdateProductModal() {
+      this.isUpdateProductModalOpen = false
     },
     onPageChange(page) {
       this.currentPage = page;
@@ -78,7 +97,7 @@ export default {
         <tr class="bg-black">
           <th class="whitespace-nowrap border border-slate-300 text-center rounded">STT</th>
           <th class="whitespace-nowrap border border-slate-300 text-center rounded">Category</th>
-          <th class="whitespace-nowrap border border-slate-300 text-center rounded">Name</th>
+          <th class="whitespace-nowrap border border-slate-300 rounded">Name</th>
           <th class="whitespace-nowrap border border-slate-300 text-center rounded">Images</th>
           <th class="whitespace-nowrap border border-slate-300 text-center rounded">Price</th>
           <th class="whitespace-nowrap border border-slate-300 text-center rounded">Brand</th>
@@ -93,7 +112,14 @@ export default {
         <tr class="cursor-pointer" v-for="(item, index) in productList">
           <td class="text-center" >{{ stt + index }}</td>
           <td>
-            <div class="">{{item.category_name}}</div>
+            <Tippy
+                class="tooltip block flex justify-left font-medium w-20 whitespace-nowrap" :key="item.category_name"
+                tag="div"
+                :content="item.category_name"
+                :options="{
+                  theme: 'light',
+                }"><span class="truncate">{{item.category_name}}</span>
+            </Tippy>
           </td>
           <td>
             <Tippy
@@ -126,13 +152,13 @@ export default {
           </td>
           <td>
             <Tippy
-                class="tooltip block flex justify-left font-medium w-60 whitespace-nowrap" :key="item.description"
+                class="tooltip block flex justify-left font-medium w-60 whitespace-nowrap" :key="item.product_description"
                 tag="div"
-                :content="item.description"
+                :content="item.product_description"
                 :options="{
                   theme: 'light',
                 }">
-              <span class="truncate">{{ item.product_description }}</span>
+                <span class="truncate">{{ item.product_description }}</span>
             </Tippy>
           </td>
           <td>
@@ -140,11 +166,10 @@ export default {
           </td>
           <td>
             <div class="text-center flex ">
-              <span class="flex items-center mr-3 text-primary">
+              <span class="flex items-center mr-3 text-primary" @click="openUpdateProductModal(item)">
                 <EditIcon class="w-4 h-4 mr-1" />
               </span>
-              <span class="flex items-center mr-3 text-primary"
-                    @click="">
+              <span class="flex items-center mr-3 text-primary" @click="openDeleteProductModal(item)">
                 <TrashIcon class="w-4 h-4 mr-1" />
               </span>
             </div>
@@ -166,6 +191,8 @@ export default {
     <LoadingIcon icon="three-dots" class="w-20 h-20"/>
   </div>
   <ProductModal :is-open="isProductModalOpen" :on-close="closeProductModal" />
+  <DeleteProductModal :is-open="isDeleteProductModalOpen" :on-close="closeDeleteProductModal" :data="dataDetail"/>
+  <UpdateProductModal :is-open="isUpdateProductModalOpen" :on-close="closeUpdateProductModal" :data="dataDetail"/>
 </template>
 
 <style scoped>
@@ -177,6 +204,7 @@ export default {
 <style>
 .content {
   min-height: 75vh !important;
+  overflow-y: scroll;
 }
 .main {
   overflow-y: hidden;
