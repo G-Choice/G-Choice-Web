@@ -10,6 +10,9 @@ class ProductApi extends BaseApi {
   deleteProduct(id) {
     return this.delete(`products/${id}`)
   }
+  updateProduct(params={}, id) {
+    return this.patchFormData(`products/${id}`, params)
+  }
 }
 
 export default new ProductApi()

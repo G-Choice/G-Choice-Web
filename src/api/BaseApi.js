@@ -97,10 +97,10 @@ export default class BaseApi {
         }
     }
 
-    async putDataForm(url, data, config = {}) {
+    async patchFormData(url, data, config = {}) {
         try {
             const headers = this.getHeadersDataForm(config)
-            const response = await axios.put(`${API_ROOT}/${url}`, data, {
+            const response = await axios.patch(`${API_ROOT}/${url}`, data, {
                 headers: headers
             })
             return this._responseHandler(response)

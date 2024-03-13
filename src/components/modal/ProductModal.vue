@@ -121,6 +121,7 @@
                   multiple="multiple"
                   required
                   @change="handleFileUpload"
+                  accept="image/*"
               />
             </div>
             <div class="invalid-feedback" v-for="(item, index) in errorImages" v-bind:key="index">{{ item }}</div>
@@ -172,10 +173,10 @@ export default {
     const schema = Yup.object().shape({
       category: Yup.string().required("Category is required"),
       name: Yup.string().required('Product name is required').min(20),
-      price: Yup.string().required('Price is required'),
+      price: Yup.number().required('Price is required').min(0),
       description: Yup.string().required("Description is required"),
       brand: Yup.string().required("Brand is required"),
-      amount: Yup.string().required("Amount is required")
+      amount: Yup.number().required("Amount is required").min(1)
     })
     return {
       schema,
@@ -208,12 +209,10 @@ export default {
       this.categoryList = res.data.data
     },
     async addProduct() {
-      const isValid = await this.validate();
-      if (!isValid) {
-        console.log('Validation failed');
-        return;
+      const isValidImage = this.validateImage()
+      if (isValidImage) {
+        return
       }
-      this.validateImage()
       const formData = new FormData();
       formData.append('product_name', this.dataCreate.name)
       formData.append('price', this.dataCreate.price)
@@ -238,39 +237,20 @@ export default {
         this.$store.dispatch("product/fetchListProduct")
       }
     },
-    async validate() {
-      try {
-        await this.schema.validate(this.dataCreate, {abortEarly: false});
-        return true;
-      } catch (error) {
-        console.error('Validation error:', error);
-        return false;
-      }
-    },
     removeImage(index) {
       this.dataCreate.files.splice(index, 1);
       const files = Array.from(this.$refs.uploadFile.files);
       files.splice(index, 1);
-      // this.dataCreate.files = files;
-      // console.log('files list as array', Array.from(this.$refs.uploadFile.files));
-      // console.log('filtered', Array.from(this.$refs.uploadFile.files).filter((_, i) => i !== index));
-      // console.log('filtered with splice', Array.from(this.$refs.uploadFile.files).splice(index, 1));
-      // // this.$refs.uploadFile.files = this.$refs.uploadFile.files.filter((_, i) => i !== index);
-      // this.$refs.uploadFile.files = FileList.
-      // Array.from(this.$refs.uploadFile.files).filter((_, i) => i !== index);
     },
     validateImage() {
       let file = this.$refs.uploadFile.files[0]
-      let allowedTypes = ['image/jpeg', 'image/png', 'image/jpg']
       this.errorImages = []
 
       if (!file) {
         this.errorImages.push('Image is required')
-        return
-      }
-      if (!allowedTypes.includes(file.type)) {
-        this.errorImages.push('Invalid type of files. Allowed jpeg, png and jpg.')
-        return
+        return true
+      } else {
+        return false
       }
     },
     handleFileUpload() {
@@ -308,15 +288,16 @@ export default {
 .invalid-feedback {
   color: #ff3e72;
 }
-</style>
-<style scoped>
-.custom-file-input::-webkit-file-upload-button {
-  visibility: hidden;
-}
+
 .selected-images {
   display: flex;
   flex-wrap: wrap;
   gap: 30px;
   margin: 20px 0;
+}
+</style>
+<style scoped>
+.custom-file-input::-webkit-file-upload-button {
+  visibility: hidden;
 }
 </style>
