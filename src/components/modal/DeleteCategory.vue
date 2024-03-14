@@ -19,7 +19,11 @@ export default {
     async deleteCategory() {
       try {
         const res = await CategoryApi.deleteCategory(this.data.id)
-        this.openNotiModal("SUCCESS")
+        if (res.data.statusCode === 200) {
+          this.openNotiModal("SUCCESS")
+        } else {
+          this.openNotiModal("FAIL")
+        }
       } catch (e) {
         console.warn(e)
         this.openNotiModal("FAIL")
