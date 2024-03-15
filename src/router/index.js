@@ -9,6 +9,7 @@ import store from "@/stores";
 import Dashboard from "@/views/admin/Dashboard.vue";
 import Category from "@/views/admin/Category.vue";
 import Product from "@/views/admin/Product.vue";
+import TrackOrder from "@/views/admin/TrackOrder.vue";
 const routes = [
   {
     path: "/",
@@ -36,6 +37,15 @@ const routes = [
         path: "product",
         name: "Product",
         component: Product,
+        meta: {
+          requiresAuth: false,
+          id: 1
+        },
+      },
+      {
+        path: "order",
+        name: "Order",
+        component: TrackOrder,
         meta: {
           requiresAuth: false,
           id: 1

@@ -34,7 +34,7 @@
                 name="name"
                 class="form-control pr-10"
                 placeholder="Enter product name"
-                v-model="dataCreate.name"
+                v-model.trim="dataCreate.name"
                 required
                 :class="{ 'is-invalid': errors.name }"
                 min-length="20"
@@ -51,7 +51,7 @@
                 name="price"
                 class="form-control pr-10"
                 placeholder="Enter price"
-                v-model="dataCreate.price"
+                v-model.trim="dataCreate.price"
                 required
                 :class="{ 'is-invalid': errors.price }"
             />
@@ -67,7 +67,7 @@
                 name="description"
                 class="form-control pr-10"
                 placeholder="Enter description"
-                v-model="dataCreate.description"
+                v-model.trim="dataCreate.description"
                 required
                 :class="{ 'is-invalid': errors.description }"
             />

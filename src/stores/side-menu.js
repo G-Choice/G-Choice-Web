@@ -18,11 +18,11 @@ export const useSideMenuStore = defineStore("sideMenu", {
         pageName: "Product",
         title: "Products"
       },
-      // {
-      //   icon: "FolderIcon",
-      //   pageName: "Product",
-      //   title: "Products"
-      // },
+      {
+        icon: "FolderIcon",
+        pageName: "Order",
+        title: "Orders"
+      },
     ],
   }),
 });

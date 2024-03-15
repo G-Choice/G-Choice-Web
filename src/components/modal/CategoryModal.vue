@@ -76,7 +76,7 @@ export default {
                 name="name"
                 class="form-control pr-10"
                 placeholder="Enter Category name"
-                v-model="dataCreate.name"
+                v-model.trim="dataCreate.name"
                 required
                 min-length="20"
                 :class="{ 'is-invalid': errors.name }"
