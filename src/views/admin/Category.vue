@@ -95,7 +95,7 @@ export default {
             </Tippy>
           </td>
           <td>
-            <div class="text-center flex ">
+            <div class="text-center flex">
               <span class="flex items-center mr-3 text-primary" @click="openUpdateCategoryModal(item)">
                 <EditIcon class="w-4 h-4 mr-1" />
               </span>

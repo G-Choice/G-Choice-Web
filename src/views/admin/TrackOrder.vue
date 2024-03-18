@@ -1,6 +1,17 @@
 <script>
+import Pagination_master from "@/components/pagination/pagination_master.vue";
+
 export default {
-  name: "TrackOrder"
+  name: "TrackOrder",
+  components: {Pagination_master},
+  data() {
+    return {
+      perPage: 6,
+      dataPage: {},
+      totalPages: 0,
+      currentPage: 1,
+    }
+  }
 }
 </script>
 
@@ -19,16 +30,24 @@ export default {
         </tr>
         </thead>
         <tbody class="font-medium">
-        <tr class="cursor-pointer">
-          <td class="text-center">No.</td>
-          <td>Uyen</td>
-          <td>uyen xinh</td>
-          <td>July</td>
-          <td>Uyen</td>
-          <td>uyen xinh</td>
+        <tr class="cursor-pointer" v-for="(item) in 5">
+          <td class="text-center">1</td>
+          <td>Uyen Nguyen</td>
+          <td>101B Le Huu Trac, Que Son, Quang Nam</td>
+          <td>12</td>
+          <td>23243</td>
+          <td><button class="btn btn-warning text-white">Placed</button></td>
         </tr>
         </tbody>
       </table>
+    </div>
+    <div class="intro-y col-span-12 flex flex-wrap sm:flex-row sm:flex-nowrap justify-between mt-3">
+      <Pagination_master
+          :totalPages="totalPages"
+          :perPage="perPage"
+          :currentPage="currentPage"
+          @pagechanged="onPageChange"
+      />
     </div>
   </div>
 </template>

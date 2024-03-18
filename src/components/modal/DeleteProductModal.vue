@@ -52,11 +52,10 @@ export default {
       <div class="flex flex-col items-center justify-center">
         <img src="/src/assets/images/x-circle.png" class="w-20 h-20" alt="fail">
         <p class="font-bold text-lg mt-5">Are you sure to delete</p>
-        <p>Do you really want to delete this product?</p>
-        <p>This process can not be undone.</p>
+        <p>Do you really want to delete <br/> <span class="font-bold">{{data.product_product_name}}</span></p>
       </div>
     </ModalBody>
-    <ModalFooter>
+    <ModalFooter class="px-0">
       <div class="intro-x mx-auto text-center flex justify-center">
         <div class="btn btn-secondary w-24 mr-4 mb-2" @click="closeModal">Cancel</div>
         <button class="btn btn-primary w-24 mb-2" @click="deleteCategory">Oke</button>

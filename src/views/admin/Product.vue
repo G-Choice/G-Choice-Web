@@ -115,7 +115,7 @@ export default {
         </tr>
         </thead>
         <tbody class="font-medium">
-        <tr class="cursor-pointer" v-for="(item, index) in productList">
+        <tr v-for="(item, index) in productList">
           <td class="text-center" >{{ stt + index }}</td>
           <td>
             <Tippy
@@ -156,15 +156,15 @@ export default {
                 <span class="truncate">{{ item.product_description }}</span>
             </Tippy>
           </td>
-          <td class="text-center">{{ item.product_status }}</td>
+          <td class="text-center" :class="{'text-green-600': item.product_status === 'active', 'text-blue-600': item.product_status === 'maintaining'}">{{ item.product_status }}</td>
           <td>
             <div class="text-center flex ">
-              <span class="flex items-center mr-3 text-primary" @click="openUpdateProductModal(item)">
+              <button class="flex items-center mr-3 text-primary" @click="openUpdateProductModal(item)">
                 <EditIcon class="w-4 h-4 mr-1" />
-              </span>
-              <span class="flex items-center mr-3 text-primary" @click="openDeleteProductModal(item)">
+              </button>
+              <button class="flex items-center mr-3 text-primary" :class="{'hidden': item.product_status !== 'active'}" @click="openDeleteProductModal(item)">
                 <TrashIcon class="w-4 h-4 mr-1" />
-              </span>
+              </button>
             </div>
           </td>
         </tr>

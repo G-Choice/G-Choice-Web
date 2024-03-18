@@ -300,14 +300,12 @@ export default {
             </div>
           </div>
         </div>
-        <ModalFooter>
-          <div>
+        <ModalFooter class="px-0">
             <div class="intro-x mx-auto text-center flex justify-end">
               <div class="btn btn-secondary w-24 mr-4 mb-2" @click="closeModal">Cancel</div>
               <div v-if="isEnabled" class="w-24 mr-4 mb-2"><LoadingIcon icon="three-dots" class="w-20 h-20"/></div>
               <button class="btn btn-primary w-24 mb-2" type="submit" v-else>Update</button>
             </div>
-          </div>
         </ModalFooter>
       </Form>
     </ModalBody>
