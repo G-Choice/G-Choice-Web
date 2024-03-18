@@ -87,7 +87,7 @@ export default {
             <div class="invalid-feedback">{{ errors.name }}</div>
           </div>
         </div>
-        <ModalFooter>
+        <ModalFooter class="px-0">
             <div class="intro-x mx-auto text-center flex justify-end">
               <div class="btn btn-secondary w-24 mr-4 mb-2" @click="closeModal">Cancel</div>
               <div v-if="isEnabled" class="w-10 mr-4 mb-2"><LoadingIcon icon="three-dots" class="w-10 h-10"/></div>

@@ -10,6 +10,7 @@ export default {
     return {
       isSuccess: null,
       isModalNotiOpen: false,
+      message: ""
     }
   },
   methods: {
@@ -22,7 +23,7 @@ export default {
         if (res.data.statusCode === 200) {
           this.openNotiModal("SUCCESS")
         } else {
-          this.openNotiModal("FAIL")
+          this.openNotiModal("FAIL", "Existing active product in this category")
         }
       } catch (e) {
         console.warn(e)
@@ -32,9 +33,10 @@ export default {
         this.$store.dispatch("category/fetchListCategory")
       }
     },
-    openNotiModal(status) {
+    openNotiModal(status, title) {
       this.isModalNotiOpen = true
       this.isSuccess = status
+      this.message = title
     },
     closeNotiModal() {
       this.isModalNotiOpen = false
@@ -56,14 +58,14 @@ export default {
         <p>This process can not be undone.</p>
       </div>
     </ModalBody>
-    <ModalFooter>
+    <ModalFooter class="px-0">
       <div class="intro-x mx-auto text-center flex justify-center">
         <div class="btn btn-secondary w-24 mr-4 mb-2" @click="closeModal">Cancel</div>
         <button class="btn btn-primary w-24 mb-2" @click="deleteCategory">Oke</button>
       </div>
     </ModalFooter>
   </Modal>
-  <Notification :is-open="isModalNotiOpen" :on-close="closeNotiModal" :status="isSuccess" />
+  <Notification :is-open="isModalNotiOpen" :on-close="closeNotiModal" :status="isSuccess" :title="message"/>
 </template>
 
 <style scoped>

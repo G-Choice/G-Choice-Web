@@ -71,7 +71,7 @@ export default {
       <table class="table table-report">
         <thead class="text-white sticky top-0 z-20">
         <tr class="bg-black">
-          <th class="whitespace-nowrap border border-slate-300 text-center rounded w-10">STT</th>
+          <th class="whitespace-nowrap border border-slate-300 text-center rounded w-10">No.</th>
           <th class="whitespace-nowrap border border-slate-300 text-center rounded w-10">ID</th>
           <th class="whitespace-nowrap border border-slate-300 rounded">Name</th>
           <th class="whitespace-nowrap border border-slate-300 text-center rounded w-24">Action</th>
@@ -95,7 +95,7 @@ export default {
             </Tippy>
           </td>
           <td>
-            <div class="text-center flex ">
+            <div class="text-center flex">
               <span class="flex items-center mr-3 text-primary" @click="openUpdateCategoryModal(item)">
                 <EditIcon class="w-4 h-4 mr-1" />
               </span>
@@ -120,7 +120,7 @@ export default {
 <style scoped>
 .scroll-list {
   height: 75vh;
-  overflow-y: scroll;
+  overflow-y: hidden;
 }
 </style>
 <style>

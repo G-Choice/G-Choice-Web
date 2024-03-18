@@ -1,6 +1,6 @@
 <template>
   <Modal :show="isOpen" size="modal-xl" @hidden="closeModal">
-    <ModalHeader class="text-lg justify-center flex font-bold" @click="openModalAlert('SUCCESS')">
+    <ModalHeader class="text-lg justify-center flex font-bold">
       Add product
     </ModalHeader>
     <ModalBody>
@@ -34,7 +34,7 @@
                 name="name"
                 class="form-control pr-10"
                 placeholder="Enter product name"
-                v-model="dataCreate.name"
+                v-model.trim="dataCreate.name"
                 required
                 :class="{ 'is-invalid': errors.name }"
                 min-length="20"
@@ -51,7 +51,7 @@
                 name="price"
                 class="form-control pr-10"
                 placeholder="Enter price"
-                v-model="dataCreate.price"
+                v-model.trim="dataCreate.price"
                 required
                 :class="{ 'is-invalid': errors.price }"
             />
@@ -67,7 +67,7 @@
                 name="description"
                 class="form-control pr-10"
                 placeholder="Enter description"
-                v-model="dataCreate.description"
+                v-model.trim="dataCreate.description"
                 required
                 :class="{ 'is-invalid': errors.description }"
             />
@@ -142,15 +142,13 @@
             </div>
           </div>
         </div>
-        <ModalFooter>
-          <div>
-            <div class="intro-x mx-auto text-center flex justify-end">
-              <div class="btn btn-secondary w-24 mr-4 mb-2" @click="closeModal">Cancel</div>
-              <div v-if="isEnabled" class="w-10 mr-4 mb-2">
-                <LoadingIcon icon="three-dots" class="w-10 h-10"/>
-              </div>
-              <button class="btn btn-primary w-24 mb-2" type="submit" v-else>Add</button>
+        <ModalFooter class="px-0">
+          <div class="intro-x mx-auto text-center flex justify-end">
+            <div class="btn btn-secondary w-24 mr-4 mb-2" @click="closeModal">Cancel</div>
+            <div v-if="isEnabled" class="w-10 mr-4 mb-2">
+              <LoadingIcon icon="three-dots" class="w-10 h-10"/>
             </div>
+            <button class="btn btn-primary w-24 mb-2" type="submit" v-else>Add</button>
           </div>
         </ModalFooter>
       </Form>

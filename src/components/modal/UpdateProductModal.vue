@@ -57,11 +57,6 @@ export default {
       this.categoryList = res.data.data
     },
     async addProduct() {
-      // const isValid = await this.validate();
-      // if (!isValid) {
-      //   console.log('Validation failed');
-      //   return;
-      // }
       const formData = new FormData();
       formData.append('product_name', this.dataUpdate.name)
       formData.append('price', this.dataUpdate.price)
@@ -69,6 +64,7 @@ export default {
       formData.append('brand', this.dataUpdate.brand)
       formData.append('category_id', this.dataUpdate.category)
       formData.append('product_availability', this.dataUpdate.amount)
+      formData.append('status', this.dataUpdate.status)
       for (let i = 0; i < this.$refs.uploadFile.files?.length; i++) {
         let file = this.$refs.uploadFile.files[i];
         formData.append('files', file);
@@ -169,7 +165,7 @@ export default {
                 name="name"
                 class="form-control pr-10"
                 placeholder="Enter product name"
-                v-model="dataUpdate.name"
+                v-model.trim="dataUpdate.name"
                 required
                 :class="{ 'is-invalid': errors.name }"
                 min-length="20"
@@ -186,7 +182,7 @@ export default {
                 name="price"
                 class="form-control pr-10"
                 placeholder="Enter price"
-                v-model="dataUpdate.price"
+                v-model.trim="dataUpdate.price"
                 required
                 :class="{ 'is-invalid': errors.price }"
             />
@@ -202,7 +198,7 @@ export default {
                 name="description"
                 class="form-control pr-10"
                 placeholder="Enter description"
-                v-model="dataUpdate.description"
+                v-model.trim="dataUpdate.description"
                 required
                 :class="{ 'is-invalid': errors.description }"
             />
@@ -219,7 +215,7 @@ export default {
                 class="form-control pr-10"
                 placeholder="Enter the brand"
                 required
-                v-model="dataUpdate.brand"
+                v-model.trim="dataUpdate.brand"
                 :class="{ 'is-invalid': errors.brand }"
             />
             <div class="invalid-feedback">{{ errors.brand }}</div>
@@ -304,14 +300,12 @@ export default {
             </div>
           </div>
         </div>
-        <ModalFooter>
-          <div>
+        <ModalFooter class="px-0">
             <div class="intro-x mx-auto text-center flex justify-end">
               <div class="btn btn-secondary w-24 mr-4 mb-2" @click="closeModal">Cancel</div>
               <div v-if="isEnabled" class="w-24 mr-4 mb-2"><LoadingIcon icon="three-dots" class="w-20 h-20"/></div>
               <button class="btn btn-primary w-24 mb-2" type="submit" v-else>Update</button>
             </div>
-          </div>
         </ModalFooter>
       </Form>
     </ModalBody>

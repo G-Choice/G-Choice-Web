@@ -76,7 +76,7 @@ export default {
                 name="name"
                 class="form-control pr-10"
                 placeholder="Enter Category name"
-                v-model="dataCreate.name"
+                v-model.trim="dataCreate.name"
                 required
                 min-length="20"
                 :class="{ 'is-invalid': errors.name }"
@@ -84,14 +84,12 @@ export default {
             <div class="invalid-feedback">{{ errors.name }}</div>
           </div>
         </div>
-        <ModalFooter>
-          <div>
-            <div class="intro-x mx-auto text-center flex justify-end">
+        <ModalFooter class="px-0">
+            <div class="intro-x text-center flex justify-end">
               <button class="btn btn-secondary w-24 mr-4 mb-2" @click="closeModal">Cancel</button>
               <div v-if="isEnabled" class="w-24 mr-4 mb-2"><LoadingIcon icon="three-dots" class="w-20 h-20"/></div>
               <button class="btn btn-primary w-24 mb-2" type="submit" v-else>Add</button>
             </div>
-          </div>
         </ModalFooter>
       </Form>
     </ModalBody>

@@ -77,6 +77,13 @@ export default {
     },
     onClickFirstPage() {
       this.$emit("pagechanged", 1);
+    },
+    formattedPrice(props) {
+      return new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD',
+      }).format(props);
+
     }
   }
 }
@@ -94,7 +101,7 @@ export default {
       <table class="table table-report">
         <thead class="text-white sticky top-0 z-20">
         <tr class="bg-black">
-          <th class="whitespace-nowrap border border-slate-300 text-center rounded">STT</th>
+          <th class="whitespace-nowrap border border-slate-300 text-center rounded">No.</th>
           <th class="whitespace-nowrap border border-slate-300 text-center rounded">Category</th>
           <th class="whitespace-nowrap border border-slate-300 rounded">Name</th>
           <th class="whitespace-nowrap border border-slate-300 text-center rounded">Images</th>
@@ -108,7 +115,7 @@ export default {
         </tr>
         </thead>
         <tbody class="font-medium">
-        <tr class="cursor-pointer" v-for="(item, index) in productList">
+        <tr v-for="(item, index) in productList">
           <td class="text-center" >{{ stt + index }}</td>
           <td>
             <Tippy
@@ -117,7 +124,7 @@ export default {
                 :content="item.category_name"
                 :options="{
                   theme: 'light',
-                }"><span class="truncate">{{item.category_name}}</span>
+                }"><span class="truncate">{{item?.category_name}}</span>
             </Tippy>
           </td>
           <td>
@@ -131,24 +138,13 @@ export default {
               <span class="truncate">{{ item.product_product_name }}</span>
             </Tippy>
           </td>
-          <td>
-            <div class="text-center">
+          <td class="text-center">
               <img :src="item?.product_images[0]" class="w-16 h-10 object-cover rounded-md" />
-            </div>
           </td>
-          <td>
-            <div class="">{{item.product_price}}</div>
-          </td>
-          <td>
-            <div class="text-center">{{ item.product_brand }}</div>
-          </td>
-
-          <td>
-            <div class="text-center">{{ item.product_quantity_inventory }}</div>
-          </td>
-          <td>
-            <div class="text-center">{{ item.product_quantity_sold }}</div>
-          </td>
+          <td>{{formattedPrice(item?.product_price)}}</td>
+          <td class="text-center">{{ item?.product_brand }}</td>
+          <td class="text-center">{{ item?.product_quantity_inventory }}</td>
+          <td class="text-center">{{ item?.product_quantity_sold }}</td>
           <td>
             <Tippy
                 class="tooltip block flex justify-left font-medium w-60 whitespace-nowrap" :key="item.product_description"
@@ -160,17 +156,15 @@ export default {
                 <span class="truncate">{{ item.product_description }}</span>
             </Tippy>
           </td>
-          <td>
-            <div class="text-center">{{ item.product_status }}</div>
-          </td>
+          <td class="text-center" :class="{'text-green-600': item.product_status === 'active', 'text-blue-600': item.product_status === 'maintaining'}">{{ item.product_status }}</td>
           <td>
             <div class="text-center flex ">
-              <span class="flex items-center mr-3 text-primary" @click="openUpdateProductModal(item)">
+              <button class="flex items-center mr-3 text-primary" @click="openUpdateProductModal(item)">
                 <EditIcon class="w-4 h-4 mr-1" />
-              </span>
-              <span class="flex items-center mr-3 text-primary" @click="openDeleteProductModal(item)">
+              </button>
+              <button class="flex items-center mr-3 text-primary" :class="{'hidden': item.product_status !== 'active'}" @click="openDeleteProductModal(item)">
                 <TrashIcon class="w-4 h-4 mr-1" />
-              </span>
+              </button>
             </div>
           </td>
         </tr>
@@ -203,7 +197,7 @@ export default {
 <style>
 .content {
   min-height: 75vh !important;
-  overflow-y: scroll;
+  overflow-y: hidden;
 }
 .main {
   overflow-y: hidden;
