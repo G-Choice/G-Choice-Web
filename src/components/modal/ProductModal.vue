@@ -170,7 +170,7 @@ export default {
   data() {
     const schema = Yup.object().shape({
       category: Yup.string().required("Category is required"),
-      name: Yup.string().required('Product name is required').min(20),
+      name: Yup.string().required('Product name is required').min(20).max(150),
       price: Yup.number().required('Price is required').min(0),
       description: Yup.string().required("Description is required"),
       brand: Yup.string().required("Brand is required"),

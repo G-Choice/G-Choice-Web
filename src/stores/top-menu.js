@@ -5,8 +5,8 @@ export const useTopMenuStore = defineStore("topMenu", {
     menu: [
       {
         icon: "UserIcon",
-        pageName: "dashboard",
-        title: "Dashboard",
+        pageName: "customer",
+        title: "Customer",
       }
     ]
   }),

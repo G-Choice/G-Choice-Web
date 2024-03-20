@@ -96,7 +96,7 @@ export default {
       <span class="text-md font-bold">Create</span>
     </button>
   </div>
-  <div class="h-[75vh]" v-if="productList.length > 0">
+  <div class="h-[72vh]" v-if="productList.length > 0">
     <div class="scroll-list scroll-view">
       <table class="table table-report">
         <thead class="text-white sticky top-0 z-20">
@@ -162,7 +162,7 @@ export default {
               <button class="flex items-center mr-3 text-primary" @click="openUpdateProductModal(item)">
                 <EditIcon class="w-4 h-4 mr-1" />
               </button>
-              <button class="flex items-center mr-3 text-primary" :class="{'hidden': item.product_status !== 'active'}" @click="openDeleteProductModal(item)">
+              <button class="flex items-center mr-3 text-primary" :class="{'hidden': item.product_status !== 'inactive'}" @click="openDeleteProductModal(item)">
                 <TrashIcon class="w-4 h-4 mr-1" />
               </button>
             </div>

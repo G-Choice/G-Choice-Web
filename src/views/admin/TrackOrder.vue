@@ -99,8 +99,8 @@ export default {
       </select>
     </div>
     <div v-if="orderList?.length <= 0"
-         class="text-primary flex flex-col items-center justify-center p-6 font-medium text-2xl h-[600px]">
-      <img class="w-20 h-20 mb-4" src="/src/assets/images/box.png" alt="">
+         class="text-primary flex flex-col items-center justify-center p-6 font-medium text-2xl h-[500px]">
+      <img class="w-20 h-20" src="/src/assets/images/box.png" alt="">
       <span>No order here!</span>
     </div>
     <div v-else class="scroll-list scroll-view">
@@ -137,14 +137,25 @@ export default {
 <!--          <td>23243</td>-->
           <td>
             <button v-if="item.status === 'waiting_confirmation_order'" class="btn btn-danger text-white" @click="confirmOrder(item.id)">Confirm</button>
-            <p v-else>{{Process[item.status]}}</p>
+<!--            <p v-else>{{Process[item.status]}}-->
+<!--            </p>-->
+            <Tippy
+                v-else
+                class="tooltip block flex justify-left font-medium w-20 whitespace-nowrap" :key="Process[item?.status]"
+                tag="div"
+                :content="Process[item?.status]"
+                :options="{
+                  theme: 'light',
+                }">
+              <span class="truncate">{{ Process[item?.status] }}</span>
+            </Tippy>
           </td>
           <td @click="openModalDetail(item)"><EyeIcon class="w-4 h-4 mr-1" /></td>
         </tr>
         </tbody>
       </table>
     </div>
-    <div class="intro-y col-span-12 flex flex-wrap sm:flex-row sm:flex-nowrap justify-between mt-3">
+    <div v-if="orderList?.length > 0" class="intro-y col-span-12 flex flex-wrap sm:flex-row sm:flex-nowrap justify-between mt-3">
       <Pagination_master
           :totalPages="totalPages"
           :perPage="perPage"

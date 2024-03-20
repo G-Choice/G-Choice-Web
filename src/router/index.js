@@ -10,13 +10,14 @@ import Dashboard from "@/views/admin/Dashboard.vue";
 import Category from "@/views/admin/Category.vue";
 import Product from "@/views/admin/Product.vue";
 import TrackOrder from "@/views/admin/TrackOrder.vue";
+import Customer from "@/views/admin/CustomerManagement.vue";
 const routes = [
   {
     path: "/",
     component: SideMenu,
     children: [
       {
-        path: "admin",
+        path: "",
         name: "base-menu",
         component: Dashboard,
         meta: {
@@ -53,15 +54,30 @@ const routes = [
       },
     ],
   },
+  // {
+  //   path: "/admin",
+  //   component: SideMenu,
+  //   children: [
+  //     {
+  //       path: "",
+  //       name: "customer",
+  //       component: Customer,
+  //       meta: {
+  //         requiresAuth: false,
+  //         id: 1
+  //       },
+  //     }
+  //   ]
+  // },
 
   {
     path: '/',
     component: TopMenu,
     children: [
       {
-        path: 'index',
-        name: 'dashboard',
-        component: Dashboard,
+        path: '/admin',
+        name: 'customer',
+        component: Customer,
         meta: {
           id: 0,
           requiresAuth: false
