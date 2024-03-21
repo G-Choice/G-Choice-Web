@@ -2,10 +2,11 @@
 import DetailPackage from "@/components/part/DetailPackage.vue";
 import {mapGetters} from "vuex";
 import {StationStatus} from "@/common/StationStatusEnum";
+import Pagination_master from "@/components/pagination/pagination_master.vue";
 
 export default {
   name: "Customer Management",
-  components: {DetailPackage},
+  components: {Pagination_master, DetailPackage},
   computed: {
     StationStatus() {
       return StationStatus
@@ -17,7 +18,7 @@ export default {
   },
   data() {
     return {
-      perPage: 6,
+      perPage: 7,
       dataPage: {},
       totalPages: 0,
       currentPage: 1,
@@ -100,13 +101,22 @@ export default {
           </div>
           <section
               v-for="(item, index) in orderStationList">
-            <div class="grid grid-cols-4 my-2 p-3 rounded-md cursor-pointer box-shadow font-bold"
+            <div class="grid grid-cols-4 my-1.5 p-3 rounded-md cursor-pointer box-shadow font-bold"
                  @click="showDetail(item)" :class="{ 'bg-blue-100': id === item.id, 'bg-white': id !== item.id }">
               <p class="col-span-1">{{ item?.shipping_code }}</p>
               <p class="col-span-2">{{ item?.group_name }}</p>
               <p class="col-span-1" :class="{'text-red-500': item?.status === 'waiting_delivery', 'text-yellow-500': item?.status === 'fetching_items', 'text-green-700': item?.status === 'completed'}">{{ StationStatus[item?.status] }}</p>
             </div>
           </section>
+          <div class="intro-y col-span-12 flex flex-wrap sm:flex-row sm:flex-nowrap justify-between mt-3">
+          <Pagination_master
+              :totalPages="totalPages"
+              :perPage="perPage"
+              :currentPage="currentPage"
+              @pagechanged="onPageChange"
+          />
+        </div>
+
         </div>
       </div>
       <div class="col-span-3">

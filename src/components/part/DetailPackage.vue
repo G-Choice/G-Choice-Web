@@ -30,7 +30,7 @@ export default {
   <div class="bg-white p-4 rounded-md grid grid-cols-3 font-medium sticky top-4">
     <p class="col-span-1">B/L No.: {{ data?.shipping_code }}</p>
     <p class="col-span-1">Order: {{ data?.group_name }}</p>
-    <p class="col-span-1">Status: {{ StationStatus[data?.status] }}</p>
+    <p class="col-span-1">Status: <span :class="{'text-red-500': data?.status === 'waiting_delivery', 'text-yellow-500': data?.status === 'fetching_items', 'text-green-700': data?.status === 'completed'}">{{ StationStatus[data?.status] }}</span></p>
   </div>
   <div class="h-[60vh] overflow-y-scroll scroll-view mt-6 p-0">
     <table class="table">

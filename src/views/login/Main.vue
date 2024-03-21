@@ -128,7 +128,7 @@ export default {
       const res = await this.login(JSON.stringify(values, null, 4))
       // await this.getAuthInfo()
       if (res) {
-        this.$router.push('product')
+        this.$router.push('shop/order')
 
       } else {
         this.showError = true
