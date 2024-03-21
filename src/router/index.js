@@ -13,7 +13,7 @@ import TrackOrder from "@/views/admin/TrackOrder.vue";
 import Customer from "@/views/admin/CustomerManagement.vue";
 const routes = [
   {
-    path: "/",
+    path: "/shop",
     component: SideMenu,
     children: [
       {
@@ -71,11 +71,11 @@ const routes = [
   // },
 
   {
-    path: '/',
+    path: '/station',
     component: TopMenu,
     children: [
       {
-        path: '/admin',
+        path: '',
         name: 'customer',
         component: Customer,
         meta: {
@@ -118,7 +118,6 @@ router.beforeEach(async (to, from, next) => {
   if (token) {
     await store.dispatch('auth/getShopInfo', token)
     user = store.state.auth.user
-    console.log(user)
   }
 
   if (!isEmpty(user)) {

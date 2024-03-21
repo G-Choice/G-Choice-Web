@@ -4,13 +4,15 @@ import auth from './module/auth';
 import product from "@/stores/module/product";
 import category from "@/stores/module/category";
 import order from "@/stores/module/order";
+import station from "@/stores/module/station";
 
 const store = new Vuex.Store({
   modules: {
     auth,
     product,
     category,
-    order
+    order,
+    station
   }
 });
 
