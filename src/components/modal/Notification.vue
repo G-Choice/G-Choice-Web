@@ -1,7 +1,7 @@
 <script>
 export default {
   name: "Notification",
-  props: ['isOpen', 'onClose', 'status'],
+  props: ['isOpen', 'onClose', 'status', 'title'],
   methods: {
     closeModal() {
       this.onClose()
@@ -23,6 +23,7 @@ export default {
       <div v-else-if="status === 'FAIL'" class="flex flex-col items-center justify-center">
         <img src="/src/assets/images/x-circle.png" class="w-20 h-20" alt="fail">
         <p class="font-bold text-lg mt-5">Fail, something went wrong!</p>
+        <p class="font-bold text-lg mt-5">{{ title }}</p>
       </div>
     </ModalBody>
   </Modal>

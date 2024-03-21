@@ -31,7 +31,7 @@ export default {
       } finally {
         this.closeModal()
         this.$store.dispatch("category/fetchListCategory")
-      }
+      }``
     },
     openNotiModal(status, title) {
       this.isModalNotiOpen = true

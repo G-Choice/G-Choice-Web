@@ -72,7 +72,11 @@ export default {
       try {
         this.isEnabled = true
         const res = await ProductApi.updateProduct(formData, this.data.product_id)
-        this.openModalAlert("SUCCESS")
+        if (res.data.statusCode === 200) {
+          this.openModalAlert("SUCCESS")
+        } else {
+          this.openModalAlert("FAIL", "Existing active product in group, can not change status into Inactive")
+        }
       } catch (e) {
         console.log(e)
         this.openModalAlert("FAIL")
@@ -106,9 +110,10 @@ export default {
       }
       this.isFileUpdateChange = false
     },
-    openModalAlert(status) {
+    openModalAlert(status, title) {
       this.isModalAlertOpen = true
       this.isSuccess = status
+      this.message = title
     },
     closeModalAlert() {
       this.isModalAlertOpen = false
@@ -131,7 +136,7 @@ export default {
 
 <template>
   <Modal :show="isOpen" size="modal-xl" @hidden="closeModal">
-    <ModalHeader class="text-lg justify-center flex font-bold" @click="openModalAlert('SUCCESS')">
+    <ModalHeader class="text-lg justify-center flex font-bold">
       Update product
     </ModalHeader>
     <ModalBody>
@@ -310,7 +315,7 @@ export default {
       </Form>
     </ModalBody>
   </Modal>
-  <Notification :is-open="isModalAlertOpen" :on-close="closeModalAlert" :status="isSuccess" />
+  <Notification :is-open="isModalAlertOpen" :on-close="closeModalAlert" :status="isSuccess" :title="message"/>
 </template>
 
 <style scoped>

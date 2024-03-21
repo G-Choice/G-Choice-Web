@@ -1,7 +1,7 @@
 <script>
 
 import dayjs from "dayjs";
-import {Process} from "../../common/ProcessEnum";
+import {Process} from "@/common/ProcessEnum";
 
 export default {
   name: "ModalDetailOrder",
@@ -37,10 +37,10 @@ export default {
     <div class="flex">
       <div class="w-1/2">
         <p class="font-bold">Product</p>
-        <div class="flex gap-3 my-2">
+        <div class="flex gap-3 my-2 bg-white rounded-md">
           <img class="w-1/3 rounded-md" :src="data?.products?.images[0]"/>
           <div class="flex flex-col justify-between">
-            <p>{{data?.products?.product_name}}</p>
+            <p class="font-medium">{{data?.products?.product_name}}</p>
             <p class="text-lg text-primary font-bold">{{formattedPrice(data?.products?.price)}}</p>
           </div>
         </div>
