@@ -4,10 +4,11 @@ import Pagination_master from "@/components/pagination/pagination_master.vue";
 import {mapGetters} from "vuex";
 import DeleteProductModal from "@/components/modal/DeleteProductModal.vue";
 import UpdateProductModal from "@/components/modal/UpdateProductModal.vue";
+import CouponModal from "@/components/modal/CouponModal.vue";
 
 export default {
   name: "Product",
-  components: {UpdateProductModal, DeleteProductModal, Pagination_master, ProductModal},
+  components: {CouponModal, UpdateProductModal, DeleteProductModal, Pagination_master, ProductModal},
   data() {
     return {
       isProductModalOpen: false,
@@ -18,6 +19,7 @@ export default {
       stt: 0,
       isUpdateProductModalOpen: false,
       isDeleteProductModalOpen: false,
+      isCouponModalOpen: false,
       dataDetail: {}
     }
   },
@@ -65,6 +67,12 @@ export default {
     closeUpdateProductModal() {
       this.isUpdateProductModalOpen = false
     },
+    openCouponModal() {
+      this.isCouponModalOpen = true
+    },
+    closeCouponModal() {
+      this.isCouponModalOpen = false
+    },
     onPageChange(page) {
       this.currentPage = page;
       this.init(page)
@@ -79,11 +87,10 @@ export default {
       this.$emit("pagechanged", 1);
     },
     formattedPrice(props) {
-      return new Intl.NumberFormat('en-US', {
+      return new Intl.NumberFormat('vi-VN', {
         style: 'currency',
-        currency: 'USD',
+        currency: 'VND',
       }).format(props);
-
     }
   }
 }
@@ -96,7 +103,7 @@ export default {
       <span class="text-md font-bold">Create</span>
     </button>
   </div>
-  <div class="h-[72vh]" v-if="productList.length > 0">
+  <div class="h-[75vh]" v-if="productList.length > 0">
     <div class="scroll-list scroll-view">
       <table class="table table-report">
         <thead class="text-white sticky top-0 z-20">
@@ -111,6 +118,7 @@ export default {
           <th class="whitespace-nowrap border border-slate-300 text-center rounded">Sold</th>
           <th class="whitespace-nowrap border border-slate-300 text-center rounded">Description</th>
           <th class="whitespace-nowrap border border-slate-300 text-center rounded">Status</th>
+          <th class="whitespace-nowrap border border-slate-300 text-center rounded">Coupon</th>
           <th class="whitespace-nowrap border border-slate-300 text-center rounded">Action</th>
         </tr>
         </thead>
@@ -157,8 +165,9 @@ export default {
             </Tippy>
           </td>
           <td class="text-center" :class="{'text-green-600': item.product_status === 'active', 'text-blue-600': item.product_status === 'maintaining'}">{{ item.product_status }}</td>
+          <td><img class="w-10 object-cover cursor-pointer" src="/src/assets/images/coupons.png" alt="coupon" @click="openCouponModal"/></td>
           <td>
-            <div class="text-center flex ">
+            <div class="text-center flex">
               <button class="flex items-center mr-3 text-primary" @click="openUpdateProductModal(item)">
                 <EditIcon class="w-4 h-4 mr-1" />
               </button>
@@ -186,6 +195,7 @@ export default {
   <ProductModal :is-open="isProductModalOpen" :on-close="closeProductModal" />
   <DeleteProductModal :is-open="isDeleteProductModalOpen" :on-close="closeDeleteProductModal" :data="dataDetail"/>
   <UpdateProductModal :is-open="isUpdateProductModalOpen" :on-close="closeUpdateProductModal" :data="dataDetail"/>
+  <CouponModal :is-open="isCouponModalOpen" :on-close="closeCouponModal" :data="dataDetail"/>
 </template>
 
 <style scoped>

@@ -16,9 +16,9 @@ export default {
       this.onClose()
     },
     formattedPrice(props) {
-      return new Intl.NumberFormat('en-US', {
+      return new Intl.NumberFormat('vi-VN', {
         style: 'currency',
-        currency: 'USD',
+        currency: 'VND'
       }).format(props);
     },
     dateFormatted(date) {
