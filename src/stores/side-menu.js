@@ -9,9 +9,9 @@ export const useSideMenuStore = defineStore("sideMenu", {
         title: "Dashboard"
       },
       {
-        icon: "ListIcon",
-        pageName: "Category",
-        title: "Categories"
+        icon: "FolderIcon",
+        pageName: "Order",
+        title: "Orders"
       },
       {
         icon: "LayersIcon",
@@ -19,9 +19,9 @@ export const useSideMenuStore = defineStore("sideMenu", {
         title: "Products"
       },
       {
-        icon: "FolderIcon",
-        pageName: "Order",
-        title: "Orders"
+        icon: "ListIcon",
+        pageName: "Category",
+        title: "Categories"
       },
     ],
   }),

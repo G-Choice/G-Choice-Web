@@ -120,7 +120,15 @@ export default {
         <tbody class="font-medium">
         <tr class="cursor-pointer" v-for="(item, index) in orderList">
             <td class="text-center">{{ index + 1 }}</td>
-          <td>{{ item?.group_name }}</td>
+          <td>
+            <Tippy
+                class="tooltip block flex justify-left font-medium w-32 whitespace-nowrap" :key="item?.group_name"
+                tag="div"
+                :content="item?.group_name"
+                :options="{
+                  theme: 'light',
+                }"><span class="truncate">{{item?.group_name}}</span>
+            </Tippy></td>
           <td>
             <Tippy
                 class="tooltip block flex justify-left font-medium w-60 whitespace-nowrap" :key="item?.products?.product_name"
@@ -132,7 +140,7 @@ export default {
               <span class="truncate">{{ item?.products?.product_name }}</span>
             </Tippy>
           </td>
-          <td>{{ item?.deliveryAddress }}</td>
+          <td>{{ item?.receivingStation?.address }} rerewr</td>
           <td>{{ item?.current_quantity }}</td>
 <!--          <td>23243</td>-->
           <td>
