@@ -67,7 +67,8 @@ export default {
     closeUpdateProductModal() {
       this.isUpdateProductModalOpen = false
     },
-    openCouponModal() {
+    openCouponModal(item) {
+      this.dataDetail = item
       this.isCouponModalOpen = true
     },
     closeCouponModal() {
@@ -165,7 +166,7 @@ export default {
             </Tippy>
           </td>
           <td class="text-center" :class="{'text-green-600': item.product_status === 'active', 'text-blue-600': item.product_status === 'maintaining'}">{{ item.product_status }}</td>
-          <td><img class="w-10 object-cover cursor-pointer" src="/src/assets/images/coupons.png" alt="coupon" @click="openCouponModal"/></td>
+          <td><img class="w-10 object-cover cursor-pointer" src="/src/assets/images/coupons.png" alt="coupon" @click="openCouponModal(item)"/></td>
           <td>
             <div class="text-center flex">
               <button class="flex items-center mr-3 text-primary" @click="openUpdateProductModal(item)">
@@ -195,7 +196,7 @@ export default {
   <ProductModal :is-open="isProductModalOpen" :on-close="closeProductModal" />
   <DeleteProductModal :is-open="isDeleteProductModalOpen" :on-close="closeDeleteProductModal" :data="dataDetail"/>
   <UpdateProductModal :is-open="isUpdateProductModalOpen" :on-close="closeUpdateProductModal" :data="dataDetail"/>
-  <CouponModal :is-open="isCouponModalOpen" :on-close="closeCouponModal" :data="dataDetail"/>
+  <CouponModal :is-open="isCouponModalOpen" :on-close="closeCouponModal" :data-product="dataDetail"/>
 </template>
 
 <style scoped>

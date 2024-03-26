@@ -79,6 +79,7 @@ export default {
     </div>
     <div class="col-span-2">
       <Chart :data="data" type="bar"/>
+      <p class="text-center font-medium uppercase text-md">Monthy Revenue</p>
     </div>
   </div>
 </template>
