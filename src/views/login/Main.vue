@@ -124,7 +124,7 @@ export default {
     },
 
     async onSubmit(values) {
-      values.fcmToken = ""
+      values.fcmToken = "doAp0cV_SzyAkxQakgje_M:APA91bHBZC4K4bVo6r64XemhxZ69FkeDliMBCX8Ip_xXJTr2QsUaFfaqihQ-pQpIpqajQAbPBhRYsrcL3r06sOGb2yd9ZCQRrK-T8v7WgkWq70E6w1hjSX0nBmAvLX6gU2hCaCj2vZh_"
       const res = await this.login(JSON.stringify(values, null, 4))
       // await this.getAuthInfo()
       if (res) {
