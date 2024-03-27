@@ -1,6 +1,6 @@
 import axios from 'axios'
 import {AuthUtils} from "@/utils/localStorageUtils";
-const API_ROOT = import.meta.env.VITE_API_ROOTS
+const API_ROOT = import.meta.env.VITE_API_ROOTSS
 export default class BaseApi {
     constructor(url) {
         this.url = url
