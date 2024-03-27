@@ -5,7 +5,7 @@ const state = {
   params: {
     page: 1,
     take: 6,
-    status_group: ''
+    status_group: 'fetching_items'
   },
   orderStationListPaginate: []
 }
