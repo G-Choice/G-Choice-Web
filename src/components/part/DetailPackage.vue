@@ -10,6 +10,10 @@ export default {
     async confirmReceivingOrder(id) {
       const res = await TrackOrderApi.confirmReceivingOrder(id)
       await this.$store.dispatch('station/fetchListOrderStation')
+    },
+    async confirmOrderStockIn() {
+      const res = await TrackOrderApi.confirmOrderStockInStation(this.data.id)
+      await this.$store.dispatch('station/fetchListOrderStation')
     }
   },
   computed: {
@@ -17,12 +21,7 @@ export default {
       return StationStatus
     }
   },
-  props: ['data'],
-  data() {
-  },
-  mounted() {
-    console.log(this.data)
-  }
+  props: ['data']
 }
 </script>
 
@@ -31,6 +30,7 @@ export default {
     <p class="col-span-1">B/L No.: {{ data?.shipping_code }}</p>
     <p class="col-span-1">Order: {{ data?.group_name }}</p>
     <p class="col-span-1">Status: <span :class="{'text-red-500': data?.status === 'waiting_delivery', 'text-yellow-500': data?.status === 'fetching_items', 'text-green-700': data?.status === 'completed'}">{{ StationStatus[data?.status] }}</span></p>
+    <div class="absolute top-1.5 right-0" v-if="data?.status === 'waiting_delivery'"><button class="btn bg-yellow-400 text-white" @click="confirmOrderStockIn">Stock in</button></div>
   </div>
   <div class="h-[60vh] overflow-y-scroll scroll-view mt-6 p-0">
     <table class="table">
