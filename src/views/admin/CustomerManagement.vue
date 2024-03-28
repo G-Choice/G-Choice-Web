@@ -25,7 +25,7 @@ export default {
       selectedProcess: "",
       dataDetail: {},
       id: null,
-      selectedStatus: "waiting_delivery",
+      selectedStatus: "fetching_items",
       idSearch: ""
     }
   },
